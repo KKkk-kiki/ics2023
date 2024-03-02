@@ -65,6 +65,21 @@ static int cmd_si(char *args){
   cpu_exec(step);
   return 0;
 }
+
+static int cmd_info(char *args){
+  char subcmd;
+  if (args != NULL){
+    sscanf(args, "%s", &subcmd);
+  }
+  if(subcmd == 'r'){
+    isa_reg_display();
+  }
+  // if(subcmd == 'w'){
+
+  // }
+  return 0;
+}
+
 static int cmd_help(char *args);
 
 static struct {
@@ -76,6 +91,7 @@ static struct {
   { "c", "Continue the execution of the program", cmd_c },
   { "q", "Exit NEMU", cmd_q },
   { "si", "Step N", cmd_si },
+  { "info", "Print Reg status", cmd_info },
 
   /* TODO: Add more commands */
 
