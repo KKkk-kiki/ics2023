@@ -19,9 +19,9 @@
  * Type 'man regex' for more information about POSIX regex functions.
  */
 #include <regex.h>
-
+#include <string.h>
 enum {
-  TK_NOTYPE = 256, TK_EQ,
+  TK_NOTYPE = 256, TK_EQ, TK_INT
 
   /* TODO: Add more token types */
 
@@ -37,8 +37,16 @@ static struct rule {
    */
 
   {" +", TK_NOTYPE},    // spaces
-  {"\\+", '+'},         // plus
+  {"\\+", '+'},         // plus    
+  {"-", '-'}, 
   {"==", TK_EQ},        // equal
+
+//order?
+  {"\\(", '('},        // 
+  {"\\)", ')'}, 
+  {"\\*", '*'}, 
+  {"/", '/'}, 
+  {"\\d+", TK_INT}, 
 };
 
 #define NR_REGEX ARRLEN(rules)
@@ -93,6 +101,9 @@ static bool make_token(char *e) {
          * to record the token in the array `tokens'. For certain types
          * of tokens, some extra actions should be performed.
          */
+        tokens->type = rules[i].token_type;
+        strncpy(tokens->str, e + position, substr_len);
+        
 
         switch (rules[i].token_type) {
           default: TODO();
