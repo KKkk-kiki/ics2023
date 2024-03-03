@@ -88,13 +88,14 @@ static int cmd_x(char *args) {
       char *N = strtok(args, " ");
       char *EXPR = strtok(NULL, " ");
       if(EXPR != NULL){
-          int N_vlaue;
+          int n;
           paddr_t expr_addr;
-          sscanf(N, "%d", &N_vlaue);
+          sscanf(N, "%d", &n);
           sscanf(EXPR, "0x%x", &expr_addr);
           //printf("N:%d  EXPR:%u\n", N_vlaue, expr_addr);
-          for(int i = 0; i < N_vlaue ; i++){
-            printf("%d  :   0x%x\n", i, paddr_read(expr_addr, 4));
+          for(int i = 0; i < n ; i++){
+            printf("%d  :   0x%x\n", i+1, paddr_read(expr_addr, 4));
+            expr_addr += 4 ; 
           }
       }
       
