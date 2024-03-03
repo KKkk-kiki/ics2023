@@ -82,6 +82,22 @@ static int cmd_info(char *args){
   return 0;
 }
 
+static int cmd_x(char *args) {
+  return 0;
+}
+
+static int cmd_p(char *args) {
+  return 0;
+}
+
+static int cmd_w(char *args) {
+  return 0;
+}
+
+static int cmd_d(char *args) {
+  return 0;
+}
+
 static int cmd_help(char *args);
 
 static struct {
@@ -94,6 +110,10 @@ static struct {
   { "q", "Exit NEMU", cmd_q },
   { "si", "Step N", cmd_si },
   { "info", "Print Reg status", cmd_info },
+  { "x", "...", cmd_x },
+  { "p", "...", cmd_p },
+  { "w", "...", cmd_w },
+  { "d", "...", cmd_d },
 
   /* TODO: Add more commands */
 
