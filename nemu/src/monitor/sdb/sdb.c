@@ -94,7 +94,7 @@ static int cmd_x(char *args) {
           sscanf(EXPR, "0x%x", &expr_addr);
           //printf("N:%d  EXPR:%u\n", N_vlaue, expr_addr);
           for(int i = 0; i < n ; i++){
-            printf("%d  :   0x%08x\n", i+1, paddr_read(expr_addr, 4));
+            printf("%d  :   0x%09x\n", i+1, paddr_read(expr_addr, 4));
             expr_addr += 4 ; 
           }
       }
