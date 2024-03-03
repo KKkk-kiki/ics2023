@@ -86,7 +86,16 @@ static int cmd_x(char *args) {
   if(args != NULL){
       char *N = strtok(args, " ");
       char *EXPR = strtok(NULL, " ");
-      printf("N:%s  EXPR:%s", N, EXPR);
+      if(EXPR != NULL){
+          int N_vlaue;
+          paddr_t expr_addr;
+          sscanf(N, "%d", &N_vlaue);
+          sscanf(EXPR, "%u", &expr_addr);
+          printf("N:%d  EXPR:%u\n", N_vlaue, expr_addr);
+
+
+      }
+      
   }
 
   return 0;
