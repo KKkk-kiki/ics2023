@@ -83,6 +83,12 @@ static int cmd_info(char *args){
 }
 
 static int cmd_x(char *args) {
+  if(args != NULL){
+      char *N = strtok(args, " ");
+      char *EXPR = strtok(NULL, " ");
+      printf("N:%s  EXPR:%s", N, EXPR);
+  }
+
   return 0;
 }
 
