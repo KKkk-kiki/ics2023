@@ -77,7 +77,7 @@ static int cmd_info(char *args){
   else if(subcmd == 'w'){
   }
   else{
-    printf("No Arguments!");
+    printf("No Arguments!\n");
   }
   return 0;
 }
