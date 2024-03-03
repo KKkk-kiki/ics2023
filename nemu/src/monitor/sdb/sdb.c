@@ -74,9 +74,11 @@ static int cmd_info(char *args){
   if(subcmd == 'r'){
     isa_reg_display();
   }
-  // if(subcmd == 'w'){
-
-  // }
+  else if(subcmd == 'w'){
+  }
+  else{
+    printf("No Arguments!");
+  }
   return 0;
 }
 
