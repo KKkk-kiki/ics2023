@@ -20,6 +20,7 @@
  */
 #include <regex.h>
 #include <string.h>
+#include <stdbool.h>
 enum {
   TK_NOTYPE = 256, TK_EQ, TK_INT
 
@@ -121,6 +122,76 @@ static bool make_token(char *e) {
 
   return true;
 }
+
+
+bool check_parentheses(int p, int q){
+  char stack_parentheses[32]={};
+  int head =  0;
+  int i ;
+  if((tokens[p].type == '(') && (tokens[q].type == ')')){
+    for(i = p; i <= q; i++){
+      switch (tokens[i].type)
+      {
+      case '(':
+        stack_parentheses[head] = '(';
+        head ++;
+        break;
+      case ')':
+        if(stack_parentheses[head-1] == '('){
+        head --;
+        }
+        else{
+        stack_parentheses[head] = ')';
+        head ++;
+        }
+        break;
+      default:
+        break;
+      }
+      if(head == 0){break;}
+    }
+    if((i == q)&&(head == 0)){return true;}
+    else{return false;}
+  }
+  else{
+    return false;
+  }
+}
+
+uint32_t eval(int p, int q){
+  if (p > q) {
+    /* Bad expression */
+  }
+  else if (p == q) {
+    /* Single token.
+     * For now this token should be a number.
+     * Return the value of the number.
+     */
+  }
+  else if (check_parentheses(p, q) == true) {
+    /* The expression is surrounded by a matched pair of parentheses.
+     * If that is the case, just throw away the parentheses.
+     */
+    return eval(p + 1, q - 1);
+  }
+  else {
+    //op = the position of 主运算符 in the token expression;
+    int op;
+    int val1 = eval(p, op - 1);
+    int val2 = eval(op + 1, q);
+
+    // switch (op_type) {
+    //   case '+': return val1 + val2;
+    //   case '-': return val1 - val2;
+    //   case '*': return val1 * val2;
+    //   case '/': return val1 / val2;
+    //   default: assert(0);
+    // }
+  }
+
+  return 0;
+}
+
 
 
 word_t expr(char *e, bool *success) {
