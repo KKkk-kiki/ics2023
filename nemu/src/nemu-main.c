@@ -19,7 +19,7 @@ void init_monitor(int, char *[]);
 void am_init_monitor();
 void engine_start();
 int is_exit_status_bad();
-char test[1000];bool success;
+char test[1000] = "4 + 8";bool success;
 int main(int argc, char *argv[]) {
   /* Initialize the monitor. */
 #ifdef CONFIG_TARGET_AM
@@ -30,10 +30,11 @@ int main(int argc, char *argv[]) {
 
   /* Start engine. */
   engine_start();
-  while (scanf("%s",test)!=EOF)
-  {
-   expr(test, &success);
-  }
+  // while (scanf("%s",test)!=EOF)
+  // {
+  //  
+  // }
+  expr(test, &success);
   
   
   
