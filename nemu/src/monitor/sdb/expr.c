@@ -52,7 +52,7 @@ static struct rule {
 
   {"\\$[a-zA-Z0-9]+",REG},      //Reg
   {"0[xX][0-9a-fA-F]+",HEX},    //HEX
-  {"[0-9]*",NUM},               //Num
+  {"[0-9]+",NUM},               //Num
 
   {"==", TK_EQ},        // equal
 
