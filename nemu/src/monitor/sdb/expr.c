@@ -156,7 +156,6 @@ static bool make_token(char *e) {
       return false;
     }
   }
-  printf("%d",tokens[1].type);
 
   return true;
 }
