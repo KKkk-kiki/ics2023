@@ -36,31 +36,32 @@ uint32_t choose(uint32_t n){
   return rand()%n;
 }
 
-void gen(char *arg){
-  buf[buf_index++] = *arg;
-  return 0;
+void gen(char arg){
+  buf[buf_index++] = arg;
 }
 
 void gen_num(void){
   int num = choose(100);
   sprintf(&buf[buf_index++] , "%d", num);
-  return 0;
 }
 
-void gen_rand_op()(void){
+void gen_rand_op(void){
   char op[4] = {'+','-','*','/'};
   int num = choose(3);
   buf[buf_index++] = op[num];
-  return 0;
 }
 
 static void gen_rand_expr() {
+    if (buf_index >= sizeof(buf) - 1) {
+        // Buffer overflow, handle error or reset buffer
+        return;
+    }
     switch (choose(3)) {
     case 0: gen_num(); break;
     case 1: gen('('); gen_rand_expr(); gen(')'); break;
     default: gen_rand_expr(); gen_rand_op(); gen_rand_expr(); break;
   }
-  //buf[0] = '\0';
+  buf[buf_index] = '\0';
 }
 
 int main(int argc, char *argv[]) {
