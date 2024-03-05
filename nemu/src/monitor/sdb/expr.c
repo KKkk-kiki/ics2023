@@ -251,6 +251,7 @@ uint32_t eval(int p, int q){
       if(prior <= mini_prior){
         op = i;
         op_type = tokens[i].type;
+        printf("%d",op_type);
       }
     }
     int val1 = eval(p, op - 1);
