@@ -47,7 +47,7 @@ void gen_num(void){
 
 void gen_rand_op(void){
   char op[4] = {'+','-','*','/'};
-  int num = choose(3);
+  int num = choose(4);
   buf[buf_index++] = op[num];
 }
 

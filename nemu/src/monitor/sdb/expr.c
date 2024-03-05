@@ -133,6 +133,7 @@ static bool make_token(char *e) {
             tokens[nr_token++].type = rules[i].token_type;
             break;
           case REG:
+          //REG应该转后再传值
             strncpy(tokens[nr_token].str, e + position - substr_len, substr_len);
             tokens[nr_token++].type = rules[i].token_type;
             break; 
@@ -144,7 +145,7 @@ static bool make_token(char *e) {
             strncpy(tokens[nr_token].str, e + position - substr_len, substr_len);
             tokens[nr_token++].type = rules[i].token_type;
             break;         
-          default: TODO();
+          default: //TODO();
             break;
         }
       break;
