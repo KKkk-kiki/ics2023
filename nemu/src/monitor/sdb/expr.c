@@ -54,7 +54,7 @@ static struct rule {
   {"0[xX][0-9a-fA-F]+",HEX},    //HEX
   {"[0-9]+",NUM},               //Num
 
-  //{"==", TK_EQ},        // equal
+  {"==", TK_EQ},        // equal
 
 
 };
@@ -113,6 +113,7 @@ static bool make_token(char *e) {
          */
         switch (rules[i].token_type) {
           case TK_NOTYPE:
+          printf("111\n");
             break;
           case '+':
             tokens[nr_token++].type = rules[i].token_type;
