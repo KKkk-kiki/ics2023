@@ -206,9 +206,7 @@ uint32_t eval(int p, int q){
      * Return the value of the number.
      */
     uint32_t num = 0;
-    printf("!\n");
     sscanf(tokens[p].str,"%u",&num);
-    // printf("%u\n",num);
     return num;
   }
   else if (check_parentheses(p, q) == true) {
@@ -260,9 +258,6 @@ uint32_t eval(int p, int q){
         mini_prior = prior;
       }
     }
-    printf("p:%d\n",p);
-    printf("op:%d\n",op);
-    printf("q:%d\n",q);
     int val1 = eval(p, op - 1);
     int val2 = eval(op + 1, q);
     switch (op_type) {
@@ -270,7 +265,7 @@ uint32_t eval(int p, int q){
       case '-': return val1 - val2;
       case '*': return val1 * val2;
       case '/': return val1 / val2;
-      //default: //assert(0);
+      default: assert(0);
     }
   }
 
