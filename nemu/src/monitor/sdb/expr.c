@@ -206,7 +206,7 @@ uint32_t eval(int p, int q){
      * Return the value of the number.
      */
     uint32_t num = 0;
-    printf("%s\n",tokens[p].str);
+    printf("%s!\n",tokens[p].str);
     sscanf(tokens[p].str,"%u",&num);
     // printf("%u\n",num);
     return num;
