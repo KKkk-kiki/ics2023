@@ -256,7 +256,7 @@ uint32_t eval(int p, int q){
     }
     int val1 = eval(p, op - 1);
     int val2 = eval(op + 1, q);
-    printf("%d",op);
+    printf("%d\n",op);
     switch (op_type) {
       case '+': return val1 + val2;
       case '-': return val1 - val2;
@@ -276,7 +276,6 @@ word_t expr(char *e, bool *success) {
     *success = false;
     return 0;
   }
-  printf("%d",nr_token-1);
   uint32_t result = eval(0,nr_token-1);
   printf("%u\n",result);
   /* TODO: Insert codes to evaluate the expression. */
