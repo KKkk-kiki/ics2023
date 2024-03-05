@@ -206,6 +206,7 @@ uint32_t eval(int p, int q){
      * Return the value of the number.
      */
     uint32_t num = 0;
+    printf("%s\n",tokens[p].str);
     sscanf(tokens[p].str,"%u",&num);
     // printf("%u\n",num);
     return num;
@@ -260,8 +261,6 @@ uint32_t eval(int p, int q){
     }
     int val1 = eval(p, op - 1);
     int val2 = eval(op + 1, q);
-    printf("%d\n",val1);
-    printf("%d\n",val2);
     switch (op_type) {
       case '+': return val1 + val2;
       case '-': return val1 - val2;
