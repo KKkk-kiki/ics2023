@@ -205,6 +205,9 @@ uint32_t eval(int p, int q){
      * For now this token should be a number.
      * Return the value of the number.
      */
+    uint32_t num = 0;
+    sscanf(tokens[p].str,"%u",&num);
+    return num;
   }
   else if (check_parentheses(p, q) == true) {
     /* The expression is surrounded by a matched pair of parentheses.
@@ -256,7 +259,6 @@ uint32_t eval(int p, int q){
     }
     int val1 = eval(p, op - 1);
     int val2 = eval(op + 1, q);
-    printf("%d\n",op);
     switch (op_type) {
       case '+': return val1 + val2;
       case '-': return val1 - val2;
