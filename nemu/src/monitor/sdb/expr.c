@@ -276,6 +276,7 @@ word_t expr(char *e, bool *success) {
     *success = false;
     return 0;
   }
+  printf("%d",nr_token-1);
   uint32_t result = eval(0,nr_token-1);
   printf("%u\n",result);
   /* TODO: Insert codes to evaluate the expression. */
