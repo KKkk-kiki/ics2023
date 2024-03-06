@@ -27,6 +27,9 @@ enum {
   HEX = 2, 
   NUM = 3,
   TK_EQ, 
+  TK_NOEQ,
+  AND,
+  DEREF,
   /* TODO: Add more token types */
 
 };
@@ -44,7 +47,7 @@ static struct rule {
 
   {"\\+", '+'},         // plus    
   {"-", '-'},           //sub
-  {"\\*", '*'},         //mul
+  {"\\*", '*'},         //mul or pointer
   {"/", '/'},           //div
 
   {"\\(", '('},             // LEFT
@@ -55,6 +58,8 @@ static struct rule {
   {"[0-9]+",NUM},               //Num
 
   {"==", TK_EQ},        // equal
+  {"!=", TK_NOEQ},
+  {"&&", AND},
 
 
 };
@@ -144,6 +149,14 @@ static bool make_token(char *e) {
           case NUM:
             strncpy(tokens[nr_token].str, e + position - substr_len, substr_len);
             tokens[nr_token++].type = rules[i].token_type;
+            break;
+          case TK_EQ:
+            tokens[nr_token++].type = rules[i].token_type;
+            break; 
+          case TK_NOEQ:
+            tokens[nr_token++].type = rules[i].token_type;
+          case AND:
+            tokens[nr_token++].type = rules[i].token_type;
             break;         
           default: //TODO();
             break;
@@ -221,51 +234,64 @@ uint32_t eval(int p, int q){
     int op = 0;
     int op_type = 0;
     int prior ;
-    int mini_prior = 3;
+    int max_prior = 0;
     int in_parentheses = 0;
+    //prior越大，优先级越低
     for(int i = p; i <= q; i++){
       switch (tokens[i].type)
       {
-      case '+':
-        prior = 1;
-        break;
-      case '-':
-        prior = 1;
-        break;
-      case '*':
-        prior = 2;
-        break;
-      case '/':
-        prior = 2;
-        break;
       case '(':
         in_parentheses = 1;
-        prior = 3;
-        break;
+        prior = 1; break;
       case ')':
         in_parentheses = 0;
-        prior = 3;
-        break;
+        prior = 1; break;
+      case DEREF:
+        prior = 2; break;
+      case '*':
+        prior = 3; break;
+      case '/':
+        prior = 3; break;
+      case '+':
+        prior = 4; break;
+      case '-':
+        prior = 4; break;
+      case TK_EQ:
+        prior = 7; break;
+      case TK_NOEQ:
+        prior = 7; break;
+      case AND:
+        prior = 11; break;
       default:
-        prior = 3;
-        break;
+        prior = 0; break;
       }
       if(in_parentheses){
-        prior = 3;
+        prior = 1;
       }
-      if(prior <= mini_prior){
+      if(prior >= max_prior){
         op = i;
         op_type = tokens[i].type;
-        mini_prior = prior;
+        max_prior = prior;
       }
     }
-    int val1 = eval(p, op - 1);
-    int val2 = eval(op + 1, q);
+    uint32_t val1 = 0,val2 = 0;
+    if (op != DEREF){
+      val1 = eval(p, op - 1);
+      val2 = eval(op + 1, q);
+    }
+    else{
+      val2 = eval(op + 1, q);
+    }
+
     switch (op_type) {
       case '+': return val1 + val2;
       case '-': return val1 - val2;
       case '*': return val1 * val2;
       case '/': return val1 / val2;
+      case TK_EQ: return val1 == val2;
+      case TK_NOEQ: return val1 != val2;
+      case AND: return val1 && val2;
+      case DEREF: return *(uint32_t *)((uintptr_t)val2);//待验证
       default: assert(0);
     }
   }
@@ -280,6 +306,12 @@ word_t expr(char *e, bool *success) {
     *success = false;
     return 0;
   }
+  int i;
+  for (i = 0; i < nr_token; i ++) {
+  if (tokens[i].type == '*' && (i == 0 || tokens[i - 1].type == '+') ) {
+    tokens[i].type = DEREF;
+  }//情况待拓展
+}
   uint32_t result = eval(0,nr_token-1);
   printf("result = %u\n",result);
   /* TODO: Insert codes to evaluate the expression. */
