@@ -142,6 +142,7 @@ static bool make_token(char *e) {
           case REG:
           //REG应该转后再传值
             strncpy(reg_temp, e + position - substr_len + 1, substr_len - 1);//滤掉$
+            printf("%s\n",reg_temp);
             sprintf(tokens[nr_token].str, "%u", isa_reg_str2val(reg_temp,&reg_flag));
             tokens[nr_token++].type = rules[i].token_type;
             break; 
