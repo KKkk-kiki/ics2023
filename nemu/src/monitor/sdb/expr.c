@@ -283,7 +283,6 @@ uint32_t eval(int p, int q){
     if (op != DEREF){
       val1 = eval(p, op - 1);
       val2 = eval(op + 1, q);
-      printf("%d\n",op);
     }
     else{
       val2 = eval(op + 1, q);
