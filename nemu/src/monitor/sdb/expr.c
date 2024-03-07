@@ -28,6 +28,10 @@ enum {
   NUM = 3,
   TK_EQ, 
   TK_NOEQ,
+  TK_GEQ,
+  TK_LEQ,
+  TK_G,
+  TK_L,
   AND,
   DEREF,
   /* TODO: Add more token types */
@@ -59,6 +63,11 @@ static struct rule {
 
   {"==", TK_EQ},        // equal
   {"!=", TK_NOEQ},
+  {">=", TK_GEQ},       //greater than
+  {"<=", TK_LEQ},       //less than 
+  {">", TK_G},
+  {"<", TK_L},
+
   {"&&", AND},
 
 

@@ -19,8 +19,9 @@ void init_monitor(int, char *[]);
 void am_init_monitor();
 void engine_start();
 int is_exit_status_bad();
-char test[1000] = "(0XA + 3)==10";bool success;   //仅测试用，待优化寄存器和十六进制传值
-#include <isa.h>
+//char test[1000] = "(0XA + 3)==10";bool success;   //仅测试用，已优化寄存器和十六进制传值，待测试（指针解引用待测试）,暂时跳过测试，进入PA2
+//#include <isa.h>
+//cpu.gpr[0]=1;
 int main(int argc, char *argv[]) {
   /* Initialize the monitor. */
 #ifdef CONFIG_TARGET_AM
@@ -31,15 +32,8 @@ int main(int argc, char *argv[]) {
 
   /* Start engine. */
   engine_start();
-  // while (scanf("%s",test)!=EOF)
-  // {
-  //  
-  // }
   
- // cpu.gpr[0] = 1;
-  expr(test, &success);
-  
-  
-  
+  //expr(test, &success);
+
   return is_exit_status_bad();
 }
