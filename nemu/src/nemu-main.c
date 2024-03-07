@@ -19,7 +19,8 @@ void init_monitor(int, char *[]);
 void am_init_monitor();
 void engine_start();
 int is_exit_status_bad();
-char test[1000] = "$t0";bool success;   //仅测试用，待优化寄存器和十六进制传值
+char test[1000] = "$0";bool success;   //仅测试用，待优化寄存器和十六进制传值
+#include <isa.h>
 int main(int argc, char *argv[]) {
   /* Initialize the monitor. */
 #ifdef CONFIG_TARGET_AM
@@ -34,6 +35,8 @@ int main(int argc, char *argv[]) {
   // {
   //  
   // }
+  
+  cpu.gpr[0] = 1;
   expr(test, &success);
   
   
