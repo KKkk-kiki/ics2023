@@ -316,6 +316,7 @@ word_t expr(char *e, bool *success) {
   for (i = 0; i < nr_token; i ++) {
   if (tokens[i].type == '*' && (i == 0 || tokens[i - 1].type == '+') ) {
     tokens[i].type = DEREF;
+    printf("deref");
   }//情况待拓展
 }
   uint32_t result = eval(0,nr_token-1);
