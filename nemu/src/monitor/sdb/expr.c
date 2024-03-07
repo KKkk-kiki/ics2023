@@ -318,7 +318,6 @@ word_t expr(char *e, bool *success) {
   if (tokens[i].type == '*' && (i == 0 || tokens[i - 1].type == '+') ) {
     tokens[i].type = DEREF;
   }//情况待拓展
-  printf("%d\n",tokens[i].type);
 }
   uint32_t result = eval(0,nr_token-1);
   printf("result = %u\n",result);
