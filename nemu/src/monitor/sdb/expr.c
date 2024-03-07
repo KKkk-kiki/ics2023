@@ -53,7 +53,7 @@ static struct rule {
   {"\\(", '('},             // LEFT
   {"\\)", ')'},             //RIGHT
 
-  {"\\$[a-zA-Z0-9]+",REG},      //Reg
+  {"\\$[a-zA-Z0-9\\$]+",REG},      //Reg
   {"0[xX][0-9a-fA-F]+",HEX},    //HEX
   {"[0-9]+",NUM},               //Num
 

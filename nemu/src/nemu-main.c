@@ -36,7 +36,7 @@ int main(int argc, char *argv[]) {
   //  
   // }
   
-  cpu.gpr[1] = 1;
+  cpu.gpr[1] = 10;
   expr(test, &success);
   
   
