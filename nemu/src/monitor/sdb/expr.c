@@ -283,12 +283,11 @@ uint32_t eval(int p, int q){
     if (op != DEREF){
       val1 = eval(p, op - 1);
       val2 = eval(op + 1, q);
-      printf("%d\n",op);
     }
     else{
       val2 = eval(op + 1, q);
     }
-
+    printf("%d\n",op);
     switch (op_type) {
       case '+': return val1 + val2;
       case '-': return val1 - val2;
@@ -316,7 +315,6 @@ word_t expr(char *e, bool *success) {
   for (i = 0; i < nr_token; i ++) {
   if (tokens[i].type == '*' && (i == 0 || tokens[i - 1].type == '+') ) {
     tokens[i].type = DEREF;
-    printf("deref");
   }//情况待拓展
 }
   uint32_t result = eval(0,nr_token-1);
