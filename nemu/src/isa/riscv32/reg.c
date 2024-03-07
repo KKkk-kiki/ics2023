@@ -23,13 +23,26 @@ const char *regs[] = {
   "s8", "s9", "s10", "s11", "t3", "t4", "t5", "t6"
 };
 
+#define regs_len sizeof(regs) / sizeof(regs[0])
+
 void isa_reg_display() {
-  for(int i = 0; i < 32 ; i++){
+
+  for(int i = 0; i < regs_len ; i++){
     printf("reg %-3s : %u\n",regs[i],cpu.gpr[i]);
   }
   
 }
-
+//待测试
 word_t isa_reg_str2val(const char *s, bool *success) {
-  return 0;
+  word_t reg_val = 0;
+  int i = 0;
+  for(i = 0; i < regs_len ; i++){
+    if(strcmp(s,regs[i]) == 0)
+    *success = true;
+    reg_val = cpu.gpr[i];
+  }
+  if(i == regs_len){
+    *success = false;
+  }
+  return reg_val;
 }
