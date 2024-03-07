@@ -218,7 +218,6 @@ bool check_parentheses(int p, int q){
 uint32_t eval(int p, int q){
   if (p > q) {
     /* Bad expression */
-    printf("here");
   }
   else if (p == q) {
     /* Single token.
