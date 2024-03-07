@@ -236,6 +236,7 @@ uint32_t eval(int p, int q){
   }
   else {
     //op = the position of 主运算符 in the token expression;
+    printf("here");
     int op = 0;
     int op_type = 0;
     int prior = 0;
