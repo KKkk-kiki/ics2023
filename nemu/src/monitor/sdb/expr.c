@@ -287,7 +287,9 @@ uint32_t eval(int p, int q){
     else{
       val2 = eval(op + 1, q);
     }
-    printf("%d\n",op);
+    printf("op:%d\n",op);
+    printf("val1:%d\n",val1);
+    printf("val2:%d\n",val2);
     switch (op_type) {
       case '+': return val1 + val2;
       case '-': return val1 - val2;
