@@ -140,7 +140,7 @@ static bool make_token(char *e) {
             tokens[nr_token++].type = rules[i].token_type;
             break;
           case REG:
-          //REG应该转后再传值
+          //REG转换取出寄存器的值后传值
             strncpy(reg_temp, e + position - substr_len + 1, substr_len - 1);//滤掉$
             
             sprintf(tokens[nr_token].str, "%u", isa_reg_str2val(reg_temp,&reg_flag));
@@ -225,7 +225,12 @@ uint32_t eval(int p, int q){
      * Return the value of the number.
      */
     uint32_t num = 0;
-    sscanf(tokens[p].str,"%u",&num);
+    if (tokens[p].type == NUM){
+      sscanf(tokens[p].str,"%u",&num);
+    }
+    if (tokens[p].type == HEX){
+      sscanf(tokens[p].str,"%x",&num);
+    } 
     return num;
   }
   else if (check_parentheses(p, q) == true) {
