@@ -144,7 +144,7 @@ static bool make_token(char *e) {
             strncpy(reg_temp, e + position - substr_len + 1, substr_len - 1);//滤掉$
             
             sprintf(tokens[nr_token].str, "%u", isa_reg_str2val(reg_temp,&reg_flag));
-            printf("%u\n",isa_reg_str2val(reg_temp,&reg_flag));
+            //printf("%u\n",isa_reg_str2val(reg_temp,&reg_flag));
             tokens[nr_token++].type = rules[i].token_type;
             break; 
           case HEX:
