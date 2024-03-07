@@ -280,8 +280,7 @@ uint32_t eval(int p, int q){
       }
     }
     uint32_t val1 = 0,val2 = 0;
-    printf("judge:%d\n",op != DEREF);
-    if (op != DEREF){
+    if (op_type != DEREF){
       val1 = eval(p, op - 1);
       val2 = eval(op + 1, q);
      
@@ -289,9 +288,6 @@ uint32_t eval(int p, int q){
     else{
       val2 = eval(op + 1, q);
     }
-    printf("op:%d\n",op);
-    printf("p:%d\n",p);
-    printf("q:%d\n",op-1);
     switch (op_type) {
       case '+': return val1 + val2;
       case '-': return val1 - val2;
