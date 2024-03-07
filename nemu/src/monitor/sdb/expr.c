@@ -238,7 +238,7 @@ uint32_t eval(int p, int q){
     //op = the position of 主运算符 in the token expression;
     int op = 0;
     int op_type = 0;
-    int prior ;
+    int prior = 0;
     int max_prior = 0;
     int in_parentheses = 0;
     //prior越大，优先级越低
