@@ -37,6 +37,7 @@ int main(int argc, char *argv[]) {
   i = 11;
   sprintf(test+3,"%p\n",&i);
   printf("%s\n",test);
+  test[17]='\0';
   expr(test, &success);
   //expr(test, &success);
 
