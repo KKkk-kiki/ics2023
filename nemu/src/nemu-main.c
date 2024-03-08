@@ -35,7 +35,7 @@ int main(int argc, char *argv[]) {
   engine_start();
   int i;
   i = 11;
-  sprintf(test+2,"%p\n",&i);
+  sprintf(test+3,"%p\n",&i);
   printf("%s\n",test);
   //expr("1+&i", &success);
   //expr(test, &success);
