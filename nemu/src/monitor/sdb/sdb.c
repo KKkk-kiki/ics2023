@@ -107,20 +107,28 @@ static int cmd_x(char *args) {
 
 static int cmd_p(char *args) {
   bool success;
-  uint32_t result = expr(args,&success);
-  printf("result = %u\n",result);
+  uint32_t result;
+  if(args != NULL){
+    result = expr(args,&success);
+    printf("result = %u\n",result);
+  }
   return 0;
 }
 
 static int cmd_w(char *args) {
-  set_watchpoint(args);
+  if(args != NULL){
+    set_watchpoint(args);
+  }
+  
   return 0;
 }
 
 static int cmd_d(char *args) {
   int N;
-  sscanf(args, "%d", &N);
-  del_watchpoint(N);
+  if(args != NULL){
+    sscanf(args, "%d", &N);
+    del_watchpoint(N);
+  }
   return 0;
 }
 
