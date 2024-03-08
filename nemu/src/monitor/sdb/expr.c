@@ -301,6 +301,7 @@ uint32_t eval(int p, int q){
     }
     else{
       val2 = eval(op + 1, q);
+      printf("%u\n",val2);
     }
     switch (op_type) {
       case '+': return val1 + val2;
