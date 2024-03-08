@@ -47,8 +47,8 @@ WP* new_wp(){
     return p;
   }
   else{
-    printf("No free point\n");
-    assert(0);
+    printf("No free watchpoint\n");
+    //assert(0);
     return NULL;
   }
 }
