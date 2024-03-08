@@ -18,8 +18,12 @@
 
 #include <common.h>
 
-word_t expr(char *e, bool *success);
-void set_watchpoint(char *args);
-void del_watchpoint(int NO);
-void display_watchpoint();
+
+
+extern word_t expr(char *e, bool *success);
+extern void set_watchpoint(char *args);
+extern void del_watchpoint(int NO);
+extern void display_watchpoint(void);
+extern void check_watchpoint(void);
+
 #endif

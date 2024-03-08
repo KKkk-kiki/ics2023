@@ -26,42 +26,54 @@ typedef struct watchpoint {
   /* TODO: Add more members if necessary */
 
 } WP;
-
 static WP wp_pool[NR_WP] = {};
 static WP *head = NULL, *free_ = NULL;
 
 //从free_链表中返回一个空闲的监视点结构
 WP* new_wp(){
-  for(WP* p = free_; p -> next != NULL; p = p -> next){
-    if(!p -> used){
-      p -> used = true;
-      if(head == NULL){
-        head = p;
-      }
+  WP* p = NULL;
+  if(free_!= NULL){
+    p = free_;
+    free_ = free_ -> next;
+    p -> used = true;
+    if(head == NULL){
+      head = p;
+      p -> next = NULL;
+    }
+    else{
+      p -> next = head -> next;
+      head = p;
     }
     return p;
   }
-  printf("No free point\n");
-  assert(0);
-  return NULL;
-  
+  else{
+    printf("No free point\n");
+    assert(0);
+    return NULL;
+  }
 }
 
 //将wp归还到free_链表中
 void free_wp(WP *wp){
-  if(head -> NO == wp -> NO){
-    head -> used = false;
-    head = NULL;
+  
+  wp -> used = false;
+  memset(wp -> expr, '\0', sizeof(wp -> expr));
+  if(head == wp){
+    head = head -> next;
     return;
   }
-  for(WP* p = head; p -> next != NULL; p = p -> next){
-    if(p -> next -> NO == wp -> NO){
-      p -> next = p -> next -> next;
-      p -> next -> used = false;
-
+  else{
+    for(WP* p = head; p -> next != NULL; p = p -> next){
+      if(p -> next == wp){
+        p -> next = p -> next -> next;
+      }
     }
+    wp -> next = free_ -> next;
+    free_ = wp;
+    return;
   }
-  return;
+
+  
 }
 
 
@@ -103,7 +115,7 @@ void del_watchpoint(int NO){
 }
 
 //查看监视器
-void display_watchpoint(){
+void display_watchpoint(void){
   int i = 0;
   for(i = 0; i < NR_WP; i++){
     if(wp_pool[i].used){
@@ -114,5 +126,26 @@ void display_watchpoint(){
     printf("No Watchpoint now\n");
   }
   return;
+}
+
+//扫描watchpoint，查看是否有值被改变
+void check_watchpoint(void){
+  int i;
+  for(i = 0; i < NR_WP; i++){
+    if(wp_pool[i].used){
+      bool success = false;
+      uint32_t temp = expr(wp_pool[i].expr, &success);
+      if(success){
+        if(temp != wp_pool[i].value){
+          printf("Watchpoint No.%d --- expr : %s\nold_value : %u , new_value : %u\n", wp_pool[i].NO, wp_pool[i].expr, wp_pool[i].value, temp);
+          nemu_state.state = NEMU_STOP;
+          return;
+        }
+      }
+      else{
+        printf("expr error\n");
+      }
+    }
+  }
 }
 

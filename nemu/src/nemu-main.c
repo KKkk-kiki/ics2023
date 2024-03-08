@@ -14,11 +14,11 @@
 ***************************************************************************************/
 
 #include <common.h>
-#include "monitor/sdb/sdb.h"
 void init_monitor(int, char *[]);
 void am_init_monitor();
 void engine_start();
 int is_exit_status_bad();
+//#include "monitor/sdb/sdb.h"
 //char test[1000] = "(0XA + 3)==10";bool success;   //仅测试用，已优化寄存器和十六进制传值，待测试（指针解引用待测试）,暂时跳过测试，进入PA2
 //#include <isa.h>
 //cpu.gpr[0]=1;
