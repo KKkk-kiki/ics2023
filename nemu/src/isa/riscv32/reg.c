@@ -32,7 +32,7 @@ void isa_reg_display() {
   }
   
 }
-//待测试
+//已测试
 word_t isa_reg_str2val(const char *s, bool *success) {
   word_t reg_val = 0;
   int i = 0;

@@ -20,6 +20,7 @@
 typedef struct watchpoint {
   int NO;
   struct watchpoint *next;
+  bool used;
 
   /* TODO: Add more members if necessary */
 
@@ -27,6 +28,42 @@ typedef struct watchpoint {
 
 static WP wp_pool[NR_WP] = {};
 static WP *head = NULL, *free_ = NULL;
+
+//从free_链表中返回一个空闲的监视点结构
+WP* new_wp(){
+  for(WP* p = free_; p -> next != NULL; p = p -> next){
+    if(!p -> used){
+      p -> used = true;
+      if(head == NULL){
+        head = p;
+      }
+    }
+    return p;
+  }
+  printf("No free point\n");
+  assert(0);
+  return NULL;
+  
+}
+
+//将wp归还到free_链表中
+void free_wp(WP *wp){
+  if(head -> NO == wp -> NO){
+    head -> used = false;
+    head = NULL;
+    return;
+  }
+  for(WP* p = head; p -> next != NULL; p = p -> next){
+    if(p -> next -> NO == wp -> NO){
+      p -> next = p -> next -> next;
+      p -> next -> used = false;
+
+    }
+  }
+  return;
+}
+
+
 
 void init_wp_pool() {
   int i;
