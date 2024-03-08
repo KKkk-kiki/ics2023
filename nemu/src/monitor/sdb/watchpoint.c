@@ -119,12 +119,14 @@ void del_watchpoint(int NO){
 //查看监视器
 void display_watchpoint(void){
   int i = 0;
+  int flag = 1;
   for(i = 0; i < NR_WP; i++){
     if(wp_pool[i].used){
+      flag = 0;
       printf("Watchpoint No.%d --- expr : %s , value : %u\n", wp_pool[i].NO, wp_pool[i].expr, wp_pool[i].value);
     }
   }
-  if(i == NR_WP){
+  if(flag){
     printf("No Watchpoint now\n");
   }
   return;
