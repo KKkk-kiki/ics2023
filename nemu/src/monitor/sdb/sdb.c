@@ -76,6 +76,7 @@ static int cmd_info(char *args){
     isa_reg_display();
   }
   else if(subcmd == 'w'){
+    display_watchpoint();
   }
   else{
     printf("No Arguments!\n");
@@ -106,15 +107,20 @@ static int cmd_x(char *args) {
 
 static int cmd_p(char *args) {
   bool success;
-  expr(args,&success);
+  uint32_t result = expr(args,&success);
+  printf("result = %u\n",result);
   return 0;
 }
 
 static int cmd_w(char *args) {
+  set_watchpoint(args);
   return 0;
 }
 
 static int cmd_d(char *args) {
+  int N;
+  sscanf(args, "%d", &N);
+  del_watchpoint(N);
   return 0;
 }
 

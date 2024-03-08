@@ -21,7 +21,8 @@ typedef struct watchpoint {
   int NO;
   struct watchpoint *next;
   bool used;
-
+  char expr[100];//大小多少比较合适？
+  uint32_t value;
   /* TODO: Add more members if necessary */
 
 } WP;
@@ -77,4 +78,41 @@ void init_wp_pool() {
 }
 
 /* TODO: Implement the functionality of watchpoint */
+
+//设置监视器
+void set_watchpoint(char *args){
+  WP* p = new_wp();
+  strcpy(p -> expr, args);
+  bool success;
+  p -> value = expr(args, &success);
+  printf("Set watchpoint No.%d success.\n", p -> NO);
+  return;
+}
+
+//删除监视器
+void del_watchpoint(int NO){
+  for(int i = 0; i < NR_WP; i++){
+    if(wp_pool[i].NO == NO){
+      free_wp(&wp_pool[i]);
+      printf("Delete watchpoint No.%d success.\n", NO);
+      return;
+    }
+  }
+  printf("Failure : Cannot Delete watchpoint No.%d.\n", NO);
+  return;
+}
+
+//查看监视器
+void display_watchpoint(){
+  int i = 0;
+  for(int i = 0; i < NR_WP; i++){
+    if(wp_pool[i].used){
+      printf("Watchpoint No.%d --- expr : %s , value : %u\n", wp_pool[i].NO, wp_pool[i].expr, wp_pool[i].value);
+    }
+  }
+  if(i == NR_WP){
+    printf("No Watchpoint now\n");
+  }
+  return;
+}
 

@@ -332,9 +332,9 @@ word_t expr(char *e, bool *success) {
   }//情况待拓展
 }
   uint32_t result = eval(0,nr_token-1);
-  printf("result = %u\n",result);
+ 
   /* TODO: Insert codes to evaluate the expression. */
   //TODO();
 
-  return 0;
+  return result;
 }
