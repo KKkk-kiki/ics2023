@@ -110,6 +110,7 @@ void display_watchpoint(){
       printf("Watchpoint No.%d --- expr : %s , value : %u\n", wp_pool[i].NO, wp_pool[i].expr, wp_pool[i].value);
     }
   }
+  
   if(i == NR_WP){
     printf("No Watchpoint now\n");
   }
