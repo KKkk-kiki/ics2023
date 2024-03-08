@@ -20,7 +20,7 @@ void engine_start();
 int is_exit_status_bad();
 
 #include "monitor/sdb/sdb.h"
-char test[1000] = {""};bool success;   //仅测试用，已优化寄存器和十六进制传值，待测试（指针解引用待测试）,暂时跳过测试，进入PA2
+char test[1000] = {"1+*"};bool success;   //仅测试用，已优化寄存器和十六进制传值，待测试（指针解引用待测试）,暂时跳过测试，进入PA2
 //#include <isa.h>
 //cpu.gpr[0]=1;
 int main(int argc, char *argv[]) {
@@ -35,7 +35,8 @@ int main(int argc, char *argv[]) {
   engine_start();
   int i;
   i = 11;
-  printf("%p\n",&i);
+  sprintf(test+2,"%p\n",&i);
+  printf("%s\n",test);
   //expr("1+&i", &success);
   //expr(test, &success);
 
