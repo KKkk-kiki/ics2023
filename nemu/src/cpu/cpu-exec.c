@@ -39,7 +39,7 @@ static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
   if (g_print_step) { IFDEF(CONFIG_ITRACE, puts(_this->logbuf)); }
   IFDEF(CONFIG_DIFFTEST, difftest_step(_this->pc, dnpc));
   //扫描监视点，查看值是否被改变
-  check_watchpoint();
+  check_watchpoint();//待测试
 
 }
 

@@ -18,8 +18,6 @@
 
 #include <common.h>
 
-
-
 extern word_t expr(char *e, bool *success);
 extern void set_watchpoint(char *args);
 extern void del_watchpoint(int NO);
