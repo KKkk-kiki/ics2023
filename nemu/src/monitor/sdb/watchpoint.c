@@ -106,7 +106,7 @@ void set_watchpoint(char *args){
 //删除监视器
 void del_watchpoint(int NO){
   for(int i = 0; i < NR_WP; i++){
-    if(wp_pool[i].NO == NO){
+    if((wp_pool[i].NO == NO) && (wp_pool[i].used)){
       free_wp(&wp_pool[i]);
       printf("Delete watchpoint No.%d success.\n", NO);
       return;
