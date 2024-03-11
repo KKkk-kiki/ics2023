@@ -152,7 +152,7 @@ static bool make_token(char *e) {
           //REG转换取出寄存器的值后传值
             strncpy(reg_temp, e + position - substr_len + 1, substr_len - 1);//滤掉$
             
-            sprintf(tokens[nr_token].str, "%u", isa_reg_str2val(reg_temp,&reg_flag));
+            sprintf(tokens[nr_token].str, "%lu", isa_reg_str2val(reg_temp,&reg_flag));
             //printf("%u\n",isa_reg_str2val(reg_temp,&reg_flag));
             tokens[nr_token++].type = rules[i].token_type;
             break; 
@@ -224,7 +224,7 @@ bool check_parentheses(int p, int q){
   }
 }
 
-uint32_t eval(int p, int q){
+uint64_t eval(int p, int q){
   if (p > q) {
     /* Bad expression */
   }
@@ -233,12 +233,12 @@ uint32_t eval(int p, int q){
      * For now this token should be a number.
      * Return the value of the number.
      */
-    uint32_t num = 0;
+    uint64_t num = 0;
     if (tokens[p].type == NUM){
-      sscanf(tokens[p].str,"%u",&num);
+      sscanf(tokens[p].str,"%lu",&num);
     }
     if (tokens[p].type == HEX){
-      sscanf(tokens[p].str,"%x",&num);
+      sscanf(tokens[p].str,"%lx",&num);
     } 
     return num;
   }
@@ -293,7 +293,7 @@ uint32_t eval(int p, int q){
         max_prior = prior;
       }
     }
-    uint32_t val1 = 0,val2 = 0;
+    uint64_t val1 = 0,val2 = 0;
     if (op_type != DEREF){
       val1 = eval(p, op - 1);
       val2 = eval(op + 1, q);
@@ -301,7 +301,7 @@ uint32_t eval(int p, int q){
     }
     else{
       val2 = eval(op + 1, q);
-      printf("%x\n",val2);
+      printf("%lx\n",val2);
     }
     switch (op_type) {
       case '+': return val1 + val2;
@@ -311,7 +311,7 @@ uint32_t eval(int p, int q){
       case TK_EQ: return val1 == val2;
       case TK_NOEQ: return val1 != val2;
       case AND: return val1 && val2;
-      case DEREF: return *(uint32_t *)((uintptr_t)val2);//待验证
+      case DEREF: return *(uint64_t *)((uintptr_t)val2);//待验证
       default: assert(0);
     }
   }
@@ -332,7 +332,7 @@ word_t expr(char *e, bool *success) {
     tokens[i].type = DEREF;
   }//情况待拓展
 }
-  uint32_t result = eval(0,nr_token-1);
+  word_t result = eval(0,nr_token-1);
  
   /* TODO: Insert codes to evaluate the expression. */
   //TODO();
