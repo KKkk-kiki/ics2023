@@ -23,7 +23,7 @@
 #define Mw vaddr_write
 
 enum {
-  TYPE_R, TYPE_I, TYPE_U, TYPE_S, TYPE_B, TYPE_J,
+  TYPE_R, TYPE_I, TYPE_SI, TYPE_U, TYPE_S, TYPE_B, TYPE_J,
   TYPE_N, // none
 };
 
@@ -34,6 +34,7 @@ enum {
 #define immS() do { *imm = (SEXT(BITS(i, 31, 25), 7) << 5) | BITS(i, 11, 7); } while(0)
 #define immB() do { *imm = SEXT(BITS(i, 31, 31) << 12 | BITS(i, 30, 25) << 5 | BITS(i, 11, 8) << 1 | BITS(i, 7, 7) << 11, 12); } while(0)
 #define immJ() do { *imm = SEXT(BITS(i, 31, 31) << 20 | BITS(i, 30, 21) << 1 | BITS(i, 20, 20) << 11 | BITS(i, 19, 12) << 12, 21); } while(0)
+#define shamtI() do { *imm = SEXT(BITS(i, 25, 20), 6); } while(0)
 static void decode_operand(Decode *s, int *rd, word_t *src1, word_t *src2, word_t *imm, int type) {
   uint32_t i = s->isa.inst.val;
   int rs1 = BITS(i, 19, 15);
@@ -42,6 +43,7 @@ static void decode_operand(Decode *s, int *rd, word_t *src1, word_t *src2, word_
   switch (type) {
     case TYPE_R: src1R(); src2R();         break;
     case TYPE_I: src1R();          immI(); break;
+    case TYPE_SI: src1R();       shamtI(); break;
     case TYPE_U:                   immU(); break;
     case TYPE_S: src1R(); src2R(); immS(); break;
     case TYPE_B: src1R(); src2R(); immB(); break;
@@ -78,9 +80,10 @@ static int decode_exec(Decode *s) {
   INSTPAT("0100000 ????? ????? 000 ????? 01100 11", sub    , R, R(rd) = src1 - src2);
   INSTPAT("0100000 ????? ????? 000 ????? 01110 11", subw   , R, R(rd) = SEXT(src1 - src2, 32));
   INSTPAT("0000000 ????? ????? 010 ????? 01100 11", slt    , R, R(rd) = ((int64_t)src1) < ((int64_t)src2));
-  INSTPAT("0000000 ????? ????? 001 ????? 00100 11", slli   , I, R(rd) = (src1 << imm));
-  INSTPAT("0000000 ????? ????? 001 ????? 00110 11", slliw  , I, R(rd) = SEXT((src1 << imm), 32));
-  INSTPAT("0000000 ????? ????? 101 ????? 00100 11", srli   , I, R(rd) = (src1 >> imm));//？
+  INSTPAT("000000 ?????? ????? 001 ????? 00100 11", slli   ,SI, R(rd) = (src1 << imm));
+  INSTPAT("000000 ?????? ????? 001 ????? 00110 11", slliw  ,SI, R(rd) = SEXT((src1 << imm), 32));
+  INSTPAT("000000 ?????? ????? 101 ????? 00100 11", srli   ,SI, R(rd) = (src1 >> imm));//？
+  INSTPAT("010000 ?????? ????? 101 ????? 00110 11", sraiw  ,SI, R(rd) = SEXT((int32_t)src1 >> imm, 64));//？
   INSTPAT("0000000 ????? ????? 001 ????? 01110 11", sllw   , R, R(rd) = SEXT((src1&0xFFFFFFFF) << (src2&0b11111), 64));//???待测试
   INSTPAT("??????? ????? ????? 011 ????? 00100 11", sltiu  , I, R(rd) = (src1 < imm));
   INSTPAT("??????? ????? ????? 000 ????? 00100 11", addi   , I, R(rd) = src1 + imm);
