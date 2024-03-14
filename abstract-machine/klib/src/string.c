@@ -111,17 +111,19 @@ void *memcpy(void *out, const void *in, size_t n) {
 }
 
 int memcmp(const void *s1, const void *s2, size_t n) {
-  if (s1 == NULL || s2 == NULL) {
-    return 0;
-  }
-  const unsigned char *src1 = s1;
-  const unsigned char *src2 = s2;
-  while (n != 0 && *src1 != '\0' && *src2 != '\0' && *src1 == *src2) {
-    --n;
-    ++src1;
-    ++src2;
-  }
-  return *src1 == *src2 || n == 0 ? 0 : *src1 < *src2 ? -1 : 1;
+  if(!n)
+    {
+        return 0;
+    }
+    // 当比较位数不为0时，且每位数据相等时，移动指针
+    while(n-- && *(char*)s1 == *(char*)s2)
+    {
+        s1 = (char*)s1 + 1;    // 转换类型，移动指针
+        s2 = (char*)s2 + 1;
+    }
+    // 返回超过比较位数之后 比较的大小
+    return( *((unsigned char *)s1) - *((unsigned char *)s2) );   
+  //panic("Not implemented");
 }
 
 #endif
