@@ -158,10 +158,13 @@ static char sprint_buf[1024];
 int printf(const char *fmt, ...)//可以有一个或多个固定参数
 {
   va_list args; //用于存放参数列表的数据结构
-  int n;
+  int n,i;
   /*根据最后一个fmt来初始化参数列表，至于为什么是最后一个参数，是与va_start有关，感兴趣的朋友可以先去了解一下变参函数和里面用到的相关宏的作用。*/
   va_start(args, fmt);
   n = vsprintf(sprint_buf, fmt, args);
+  for (i = 0; i < n; i++) {
+    putch(sprint_buf[i]); // 逐个字符输出
+  }
   va_end(args);//执行清理参数列表的工作
   // if (console_ops.write)
   // 		console_ops.write(sprint_buf, n);
