@@ -6,7 +6,7 @@ int main(const char *args);
 
 Area heap = RANGE(&_heap_start, PMEM_END);
 #ifndef MAINARGS
-#define MAINARGS ""
+#define MAINARGS "2"
 #endif
 static const char mainargs[] = MAINARGS;
 
@@ -22,7 +22,6 @@ void halt(int code) {
 }
 
 void _trm_init() {
-  printf("%s",mainargs);
   int ret = main(mainargs);
   halt(ret);
 }
