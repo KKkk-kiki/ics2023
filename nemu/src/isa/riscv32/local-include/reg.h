@@ -30,4 +30,7 @@ static inline const char* reg_name(int idx) {
   return regs[check_reg_idx(idx)];
 }
 
+//解析指令指向的寄存器
+vaddr_t *csr_register(word_t imm); 
+
 #endif
