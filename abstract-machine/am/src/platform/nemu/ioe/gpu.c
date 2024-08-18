@@ -4,14 +4,14 @@
 #define SYNC_ADDR (VGACTL_ADDR + 4)
 
 void __am_gpu_init() {
-  int i;
-  uint32_t vga_ctl = inl(VGACTL_ADDR);
-  uint16_t width = (vga_ctl >> 16) & 0xFFFF;
-  uint16_t height = (vga_ctl) & 0xFFFF;
-  int w = width;  // 获取正确的宽度
-  int h = height; // 获取正确的高度
-  uint32_t *fb = (uint32_t *)(uintptr_t)FB_ADDR;
-  for (i = 0; i < w * h; i ++) fb[i] = i;
+  // int i;
+  // uint32_t vga_ctl = inl(VGACTL_ADDR);
+  // uint16_t width = (vga_ctl >> 16) & 0xFFFF;
+  // uint16_t height = (vga_ctl) & 0xFFFF;
+  // int w = width;  // 获取正确的宽度
+  // int h = height; // 获取正确的高度
+  // uint32_t *fb = (uint32_t *)(uintptr_t)FB_ADDR;
+  // for (i = 0; i < w * h; i ++) fb[i] = i;
   outl(SYNC_ADDR, 1);
 }
 
