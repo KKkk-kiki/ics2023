@@ -103,7 +103,24 @@ void *memset(void *s, int c, size_t n) {
 }
 
 void *memmove(void *dst, const void *src, size_t n) {
-  panic("Not implemented");
+  unsigned char *d = (unsigned char *)dst;
+  const unsigned char *s = (const unsigned char *)src;
+
+  if (d < s) {
+    // 如果目标地址在源地址之前，从前向后复制
+    for (size_t i = 0; i < n; i++) {
+      d[i] = s[i];
+    }
+  } else if (d > s) {
+    // 如果目标地址在源地址之后，从后向前复制
+    for (size_t i = n; i > 0; i--) {
+      d[i - 1] = s[i - 1];
+    }
+  }
+  // 如果目标地址和源地址相同，不需要复制
+
+  return dst;
+  //panic("Not implemented");
 }
 
 void *memcpy(void *out, const void *in, size_t n) {
