@@ -32,7 +32,7 @@ enum {
 #define immI() do { *imm = SEXT(BITS(i, 31, 20), 12); } while(0)
 #define immU() do { *imm = SEXT(BITS(i, 31, 12), 20) << 12; } while(0)
 #define immS() do { *imm = (SEXT(BITS(i, 31, 25), 7) << 5) | BITS(i, 11, 7); } while(0)
-#define immB() do { *imm = SEXT(BITS(i, 31, 31) << 11 | BITS(i, 30, 25) << 4 | BITS(i, 11, 8) << 0 | BITS(i, 7, 7) << 10, 12); } while(0)
+#define immB() do { *imm = SEXT(BITS(i, 31, 31) << 12 | BITS(i, 30, 25) << 5 | BITS(i, 11, 8) << 1 | BITS(i, 7, 7) << 11, 12); } while(0)
 #define immJ() do { *imm = SEXT(BITS(i, 31, 31) << 20 | BITS(i, 30, 21) << 1 | BITS(i, 20, 20) << 11 | BITS(i, 19, 12) << 12, 21); } while(0)
 #define shamtI() do { *imm = SEXT(BITS(i, 25, 20), 6); } while(0)
 static void decode_operand(Decode *s, int *rd, word_t *src1, word_t *src2, word_t *imm, int type) {
@@ -72,6 +72,7 @@ static int decode_exec(Decode *s) {
   INSTPAT("??????? ????? ????? 100 ????? 11000 11", blt    , B, if(((sword_t)src1) < ((sword_t)src2)){s->dnpc = s->pc; s->dnpc += imm;});
   INSTPAT("??????? ????? ????? 110 ????? 11000 11", bltu   , B, if(src1 < src2){s->dnpc = s->pc; s->dnpc += imm;});//???
           //  1110110 01010 11000 001 10000 11000 11
+
   INSTPAT("??????? ????? ????? 001 ????? 11000 11", bne    , B, if(src1 != src2){s->dnpc = s->pc + imm;printf("s-pc:%lx\n",imm);});
   INSTPAT("0000001 ????? ????? 100 ????? 01110 11", divw   , R, R(rd) = SEXT(((int32_t)src1) / ((int32_t)src2), 32));
   INSTPAT("0000001 ????? ????? 101 ????? 01100 11", divu   , R, R(rd) = (src1) / (src2));
