@@ -29,11 +29,10 @@ Context* __am_irq_handle(Context *c) {
   if (user_handler) {
     Event ev = {0};
     switch (c->mcause) {
-      case 0: case 1: case 3:case 4:case 5:case 6: 
+      case -1:case 0: case 1: case 3:case 4:case 5:case 6: 
         ev.event = EVENT_SYSCALL;break;
       default: ev.event = EVENT_ERROR; break;
     }
-    printf("IDnum:%d\n",ev.event);
     c = user_handler(ev, c);
     assert(c != NULL);
   }
