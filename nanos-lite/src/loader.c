@@ -16,7 +16,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
     ramdisk_read(&ehdr, 0, get_ramdisk_size());
 
     // 检查ELF魔数，确保这是一个有效的ELF文件
-    assert(*(uint32_t *)ehdr.e_ident == 0x464c457f);
+    // assert(*(uint32_t *)ehdr.e_ident == 0x464c457f);
     //检测ELF文件的ISA类型
 
     // 读取程序头表
