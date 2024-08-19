@@ -11,11 +11,11 @@ void sys_exit(int ret){
   halt(ret);
   return ;
 }
-int sys_write(intptr_t buf, size_t count){
-  for(int i = 0;i < count; i++){
-    putch(*((char *)buf + i));
-  }
-  return count;
+size_t sys_write(int fd, void *buf, size_t len){
+  // for(int i = 0;i < count; i++){
+  //   putch(*((char *)buf + i));
+  // }
+  return fs_write(fd, buf, len);
 }
 int sys_brk(intptr_t addr){
   //检查申请的addr是否越界
@@ -47,7 +47,7 @@ void do_syscall(Context *c) {
     case SYS_exit://0
       c->GPRx = 0; sys_exit(c->GPRx);break;
     case SYS_write://4
-      c->GPRx = sys_write(a[1],a[2]);break;
+      c->GPRx = sys_write(a[1],(void*)a[2],a[3]);break;
     case SYS_brk://9
       c->GPRx = sys_brk(a[1]);break;
     case SYS_open://2
