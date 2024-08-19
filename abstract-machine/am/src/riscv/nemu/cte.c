@@ -14,6 +14,9 @@ Context* __am_irq_handle(Context *c) {
   //   c = user_handler(ev, c);
   //   assert(c != NULL);
   // }
+  for(int i = 0; i < 32 ; i++){
+    printf("reg : %lu\n",c->gpr[i]);
+  }
   printf("mepc :%x\n",c->mepc);
   printf("mcause :%x\n",c->mstatus);
   printf("mcause :%x\n",c->mcause);
