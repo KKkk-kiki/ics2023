@@ -127,7 +127,7 @@ void cpu_exec(uint64_t n) {
           nemu_state.halt_pc);
 
       // fall through
-      isa_reg_display();
+      // isa_reg_display();
     case NEMU_QUIT: statistic();
   }
 }
