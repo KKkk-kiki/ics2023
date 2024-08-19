@@ -20,6 +20,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
     // if (memcmp(ehdr->e_ident, ELFMAG, SELFMAG) != 0) {
     //     panic("Not a valid ELF file");
     // }
+    assert(*(uint32_t *)ehdr.e_ident == 0x7f454c46020101);
 
     // 读取程序头表
     Elf_Phdr phdr[ehdr.e_phnum];
