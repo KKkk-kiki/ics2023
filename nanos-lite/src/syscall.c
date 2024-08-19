@@ -11,6 +11,7 @@ void sys_exit(int ret){
   return ;
 }
 void sys_write(intptr_t buf, size_t count){
+  printf("sys_write\n");
   for(int i = 0;i < count; i++){
     putch(*((char *)buf + i));
   }
