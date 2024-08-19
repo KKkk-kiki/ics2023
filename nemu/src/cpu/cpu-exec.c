@@ -126,6 +126,7 @@ void cpu_exec(uint64_t n) {
             ANSI_FMT("HIT BAD TRAP", ANSI_FG_RED))),
           nemu_state.halt_pc);
       // fall through
+    isa_reg_display();
     case NEMU_QUIT: statistic();
   }
 }
