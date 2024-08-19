@@ -30,10 +30,10 @@ Context* __am_irq_handle(Context *c) {
   //   printf("reg : %lu\n",c->gpr[i]);
   // }
 
-  printf("mcause :%lu\n",c->mcause);
-  printf("mepc :%lu\n",c->mepc);
-  printf("mstatus :%lu\n",c->mstatus);
-  printf("pdir :%lu\n",c->pdir);
+  // printf("mcause :%lu\n",c->mcause);
+  // printf("mepc :%lu\n",c->mepc);
+  // printf("mstatus :%lu\n",c->mstatus);
+  // printf("pdir :%lu\n",c->pdir);
   if (user_handler) {
     Event ev = {0};
     switch (c->mcause) {
