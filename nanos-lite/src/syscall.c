@@ -19,7 +19,10 @@ int sys_write(intptr_t buf, size_t count){
   }
   return count;
 }
-
+int sys_brk(intptr_t addr){
+  //检查申请的addr是否越界
+  return 0;
+}
 
 void do_syscall(Context *c) {
   uintptr_t a[4];
@@ -33,7 +36,9 @@ void do_syscall(Context *c) {
     case SYS_exit:
       c->GPRx = 0; sys_exit(c->GPRx);break;
     case SYS_write:
-      sys_write(a[1],a[2]);break;
+      c->GPRx = sys_write(a[1],a[2]);break;
+    case SYS_brk:
+      c->GPRx = sys_brk(a[1]);break;
     default: panic("Unhandled syscall ID = %d", a[0]);
   }
 }
