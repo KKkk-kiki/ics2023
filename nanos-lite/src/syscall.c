@@ -42,21 +42,21 @@ void do_syscall(Context *c) {
   a[3] = c->GPR4;
   printf("syscall ID: %d\n",a[0]);
   switch (a[0]) {
-    case SYS_yield:
+    case SYS_yield://1
       c->GPRx = sys_yield(NULL);break;
-    case SYS_exit:
+    case SYS_exit://0
       c->GPRx = 0; sys_exit(c->GPRx);break;
-    case SYS_write:
+    case SYS_write://4
       c->GPRx = sys_write(a[1],a[2]);break;
-    case SYS_brk:
+    case SYS_brk://9
       c->GPRx = sys_brk(a[1]);break;
-    case SYS_open:
+    case SYS_open://2
       c->GPRx = sys_open((char*)a[1], a[2], a[3]);break;
-    case SYS_close:
+    case SYS_close://7
       c->GPRx = sys_close(a[1]);break;
-    case SYS_read:
+    case SYS_read://3
       c->GPRx = sys_read(a[1], (void *)a[2], a[3]);break;
-    case SYS_lseek:
+    case SYS_lseek://8
       c->GPRx = sys_lseek(a[1], a[2], a[3]);break;
 
     default: panic("Unhandled syscall ID = %d", a[0]);
