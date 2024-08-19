@@ -21,6 +21,7 @@ int sys_write(intptr_t buf, size_t count){
 }
 int sys_brk(intptr_t addr){
   //检查申请的addr是否越界
+  printf("brk!");
   return 0;
 }
 
