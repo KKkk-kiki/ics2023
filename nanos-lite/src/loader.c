@@ -16,25 +16,27 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
       panic("should not reach here");
     }
     Elf_Ehdr ehdr;
-    fs_read(fd, &ehdr, sizeof(Elf_Ehdr));
+    fs_read(fd, &ehdr, sizeof(ehdr));
     // 检查ELF魔数，确保这是一个有效的ELF文件
     assert(*(uint32_t *)ehdr.e_ident == 0x464c457f);
     //检测ELF文件的ISA类型
 
     // 读取程序头表
-    Elf_Phdr phdr[ehdr.e_phnum];
-    fs_lseek(fd, ehdr.e_phoff, SEEK_SET);
-    fs_read(fd, phdr, sizeof(Elf_Phdr)*ehdr.e_phnum);
-    
+    Elf_Phdr phdr;
 
     // 遍历程序头表，加载各个段到内存中
     for (int i = 0; i < ehdr.e_phnum; i++) {
-      if (phdr[i].p_type == PT_LOAD) {
+      fs_lseek(fd, ehdr.e_phoff + i*ehdr.e_phentsize, SEEK_SET);
+      fs_read(fd, &phdr, ehdr.e_phentsize);
+      if (phdr.p_type == PT_LOAD) {
         // 写入段在内存中的地址
-        ramdisk_read((void*)phdr[i].p_vaddr, phdr[i].p_offset, phdr[i].p_memsz);
+          // char *buf_malloc = (char*)malloc(phdr.p_memsz);
+          // memcpy((void*)phdr.p_vaddr,phdr.p_memsz)
+        fs_lseek(fd, phdr.p_offset, SEEK_SET);
+        fs_read(fd, (void*)phdr.p_vaddr, phdr.p_memsz);  
         // 如果内存大小大于文件大小，将剩余部分清零
-        if (phdr[i].p_memsz > phdr[i].p_filesz) {
-          memset((void*)(phdr[i].p_vaddr+phdr[i].p_filesz), 0, phdr[i].p_memsz - phdr[i].p_filesz);
+        if (phdr.p_memsz > phdr.p_filesz) {
+          memset((void*)(phdr.p_vaddr+phdr.p_filesz), 0, phdr.p_memsz - phdr.p_filesz);
         }
       }
     }
