@@ -17,10 +17,11 @@ Context* __am_irq_handle(Context *c) {
   for(int i = 0; i < 32 ; i++){
     printf("reg : %lu\n",c->gpr[i]);
   }
+
+  printf("mcause :%lu\n",c->mcause);
   printf("mepc :%lu\n",c->mepc);
-  printf("mcause :%lu\n",c->mstatus);
-  printf("mcause :%lu\n",c->mcause);
-  printf("mcause :%lu\n",c->mcause);
+  printf("mstatus :%lu\n",c->mstatus);
+  printf("pdir :%lu\n",c->pdir);
   return c;
 }
 
