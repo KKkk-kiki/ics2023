@@ -1,7 +1,7 @@
 #include <proc.h>
 #include <elf.h>
 #include <klib.h>
-
+#include <fs.h>
 #ifdef __LP64__
 # define Elf_Ehdr Elf64_Ehdr
 # define Elf_Phdr Elf64_Phdr
@@ -11,17 +11,21 @@
 #endif
 
 static uintptr_t loader(PCB *pcb, const char *filename) {
-  // TODO();
+    int fd = fs_open(filename, 0, 0);
+    if(fd < 0){
+      panic("should not reach here");
+    }
     Elf_Ehdr ehdr;
-    ramdisk_read(&ehdr, 0, get_ramdisk_size());
-
+    fs_read(fd, &ehdr, sizeof(Elf_Ehdr));
     // 检查ELF魔数，确保这是一个有效的ELF文件
     assert(*(uint32_t *)ehdr.e_ident == 0x464c457f);
     //检测ELF文件的ISA类型
 
     // 读取程序头表
     Elf_Phdr phdr[ehdr.e_phnum];
-    ramdisk_read(phdr, ehdr.e_phoff, sizeof(Elf_Phdr)*ehdr.e_phnum);
+    fs_lseek(fd, ehdr.e_phoff, SEEK_SET);
+    fs_read(fd, phdr, sizeof(Elf_Phdr)*ehdr.e_phnum);
+    
 
     // 遍历程序头表，加载各个段到内存中
     for (int i = 0; i < ehdr.e_phnum; i++) {
@@ -39,7 +43,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
 }
 
 void naive_uload(PCB *pcb, const char *filename) {
-  uintptr_t entry = loader(pcb, filename);
+  uintptr_t entry = loader(pcb, "/bin/hello");
   Log("Jump to entry = %p", entry);
   ((void(*)())entry) ();
 }

@@ -11,9 +11,6 @@ void sys_exit(int ret){
   return ;
 }
 int sys_write(intptr_t buf, size_t count){
-  // printf("sys_write\n");
-  // printf("count: %d\n",count);
-  // printf("%s\n",buf);
   for(int i = 0;i < count; i++){
     putch(*((char *)buf + i));
   }
@@ -21,7 +18,6 @@ int sys_write(intptr_t buf, size_t count){
 }
 int sys_brk(intptr_t addr){
   //检查申请的addr是否越界
-  printf("brk!");
   return 0;
 }
 
