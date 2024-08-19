@@ -33,7 +33,6 @@ Context* __am_irq_handle(Context *c) {
         ev.event = EVENT_SYSCALL;break;
       default: ev.event = EVENT_ERROR; break;
     }
-    printf("IDnum:%d\n",ev.event);
     c = user_handler(ev, c);
     assert(c != NULL);
   }
