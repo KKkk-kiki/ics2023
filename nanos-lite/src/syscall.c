@@ -38,7 +38,7 @@ void do_syscall(Context *c) {
     case SYS_exit:
       c->GPRx = 0; sys_exit(c->GPRx);break;
     case SYS_write:
-      c->GPRx = sys_write(a[1],a[2]);break;
+      c->GPRx = sys_write(a[1],a[2]);printf("c-ret:%d\n",c->GPRx);break;
     case SYS_brk:
       c->GPRx = sys_brk(a[1]);break;
     default: panic("Unhandled syscall ID = %d", a[0]);
