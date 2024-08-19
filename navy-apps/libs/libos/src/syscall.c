@@ -69,7 +69,7 @@ int _write(int fd, void *buf, size_t count) {
   if (fd == 1 || fd == 2){
     _syscall_(SYS_write, (intptr_t)buf, count, 0);
   }
-  _exit(SYS_write);
+  // _exit(SYS_write);
   return 0;
 }
 
