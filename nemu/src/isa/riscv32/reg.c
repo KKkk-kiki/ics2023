@@ -30,7 +30,10 @@ void isa_reg_display() {
   for(int i = 0; i < regs_len ; i++){
     printf("reg %-3s : %lu\n",regs[i],cpu.gpr[i]);
   }
-  
+  printf("reg mcause  : %lu\n",cpu.csr.mcause);
+  printf("reg mepc    : %lu\n",cpu.csr.mepc);
+  printf("reg mstatus : %lu\n",cpu.csr.mstatus);
+  printf("reg mtvec   : %lu\n",cpu.csr.mtvec);
 }
 //已测试
 word_t isa_reg_str2val(const char *s, bool *success) {
