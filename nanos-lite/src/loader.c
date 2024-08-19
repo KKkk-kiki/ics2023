@@ -13,12 +13,12 @@
 static uintptr_t loader(PCB *pcb, const char *filename) {
   // TODO();
     Elf_Ehdr ehdr;
-    ramdisk_read(&ehdr, 0, sizeof(Elf_Ehdr));
+    ramdisk_read(&ehdr, 0, get_ramdisk_size());
 
     // 检查ELF魔数，确保这是一个有效的ELF文件
     assert(*(uint32_t *)ehdr.e_ident == 0x464c457f);
     //检测ELF文件的ISA类型
-    
+
     // 读取程序头表
     Elf_Phdr phdr[ehdr.e_phnum];
     ramdisk_read(phdr, ehdr.e_phoff, sizeof(Elf_Phdr)*ehdr.e_phnum);
