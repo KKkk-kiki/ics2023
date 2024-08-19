@@ -7,6 +7,7 @@ uintptr_t sys_yield(Context *c){
 }
 
 void do_syscall(Context *c) {
+  printf("do_syscall!\n");
   uintptr_t a[4];
   a[0] = c->GPR1;
 
