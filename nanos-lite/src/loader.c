@@ -16,12 +16,9 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
     ramdisk_read(&ehdr, 0, sizeof(Elf_Ehdr));
 
     // 检查ELF魔数，确保这是一个有效的ELF文件
-    //7f 45 4c 46 02 01 01 00 00 00 00 00 00 00 00 00
-    // if (memcmp(ehdr->e_ident, ELFMAG, SELFMAG) != 0) {
-    //     panic("Not a valid ELF file");
-    // }
     assert(*(uint32_t *)ehdr.e_ident == 0x464c457f);
-
+    //检测ELF文件的ISA类型
+    
     // 读取程序头表
     Elf_Phdr phdr[ehdr.e_phnum];
     ramdisk_read(phdr, ehdr.e_phoff, sizeof(Elf_Phdr)*ehdr.e_phnum);
