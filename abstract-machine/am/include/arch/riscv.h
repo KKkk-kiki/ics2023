@@ -9,10 +9,9 @@
 
 struct Context {
   uintptr_t  gpr[NR_REGS];
-  uintptr_t  mepc;
-  uintptr_t  mstatus;
   uintptr_t mcause;
-  
+  uintptr_t  mstatus;
+  uintptr_t  mepc;
   // TODO: fix the order of these members to match trap.S
   // uintptr_t mepc, mcause, gpr[NR_REGS], mstatus;
   void *pdir;
