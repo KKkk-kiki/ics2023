@@ -8,7 +8,8 @@ Context* __am_irq_handle(Context *c) {
   if (user_handler) {
     Event ev = {0};
     switch (c->mcause) {
-      case 0:  ev.event = EVENT_YIELD; break;
+      case 0:  
+        ev.event = EVENT_YIELD; break;
       default: ev.event = EVENT_ERROR; break;
     }
 
@@ -21,7 +22,7 @@ Context* __am_irq_handle(Context *c) {
 
   // printf("mcause :%lu\n",c->mcause);
   // printf("mepc :%lu\n",c->mepc);
-  // printf("mstatus :%lu\n",c->mstatus);
+  printf("mstatus :%lu\n",c->mstatus);
   // printf("pdir :%lu\n",c->pdir);
   return c;
 }
