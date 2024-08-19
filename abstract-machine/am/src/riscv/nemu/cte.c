@@ -26,6 +26,9 @@
 static Context* (*user_handler)(Event, Context*) = NULL;
 
 Context* __am_irq_handle(Context *c) {
+    for(int i = 0; i < 32 ; i++){
+    printf("reg : %lu\n",c->gpr[i]);
+  }
   if (user_handler) {
     Event ev = {0};
     switch (c->mcause) {
