@@ -31,6 +31,7 @@ static Finfo file_table[] __attribute__((used)) = {
   [FD_STDERR] = {"stderr", 0, 0, invalid_read, serial_write},
   {"/dev/events", 0, 0, events_read, invalid_write},
   {"/proc/dispinfo", 0, 0, dispinfo_read, invalid_write},
+  {"/dev/fb", 0, 0, invalid_read, fb_write},
 #include "files.h"
 };
 
@@ -38,7 +39,10 @@ static Finfo file_table[] __attribute__((used)) = {
 
 
 void init_fs() {
-  // TODO: initialize the size of /dev/fb
+  //initialize the size of /dev/fb
+  AM_GPU_CONFIG_T cfg = io_read(AM_GPU_CONFIG);
+  int fd = fs_open("/dev/fb", 0, 0);
+  file_table[fd].size = sizeof(uint32_t)*cfg.width*cfg.height;
 }
 
 extern size_t ramdisk_read(void *buf, size_t offset, size_t len);
@@ -81,7 +85,7 @@ size_t fs_write(int fd, const void *buf, size_t len){
   size_t disk_offset = file_table[fd].disk_offset;
   size_t size = file_table[fd].size;
   if (file_table[fd].write != NULL){
-    return file_table[fd].write(buf,0,len);
+    return file_table[fd].write(buf,open_offset,len);
   }
   else{
     if (open_offset > size){

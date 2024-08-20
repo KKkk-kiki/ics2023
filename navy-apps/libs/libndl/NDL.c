@@ -7,7 +7,14 @@
 #include <fcntl.h>
 static int evtdev = -1;
 static int fbdev = -1;
+//屏幕大小
 static int screen_w = 0, screen_h = 0;
+//画布大小
+static int canvas_w;
+static int canvas_h;
+//画布原点位置,画布左上角为原点
+static int canvas_x;
+static int canvas_y;
 
 uint32_t NDL_GetTicks(struct timeval *tv, struct timezone *tz) {
   
@@ -16,15 +23,31 @@ uint32_t NDL_GetTicks(struct timeval *tv, struct timezone *tz) {
 
 int NDL_PollEvent(char *buf, int len) {
   int fd = open("/dev/events", 0,"r");
-  return  read(fd, buf, len);
+  int ret = read(fd, buf, len);
+  close(fd);
+  return ret;
 }
 
+//打开(w,h)大小的画布
 void NDL_OpenCanvas(int *w, int *h) {
-  int fd = open("/proc/dispinfo", 0,"r");
-  char buf[64];
-  read(fd, buf, sizeof(buf));
-  sscanf(buf, "Width:%d\n HEIGHT:%d",w,h);
 
+  int fd = open("/proc/dispinfo", 0,"r");
+  char buf[24];
+  read(fd, buf, sizeof(buf));
+  close(fd);
+  sscanf(buf, "Width:%d\n HEIGHT:%d",&screen_w,&screen_h);
+  if((*w == 0) && (*h == 0)){
+    *w = screen_w;
+    *h = screen_h;
+    canvas_w = screen_w;
+    canvas_h = screen_h;
+  }
+  else{
+    canvas_w = *w;
+    canvas_h = *h;
+  }
+  canvas_x = (screen_w - canvas_w)/2;
+  canvas_y = (screen_h - canvas_h)/2;
   // if (getenv("NWM_APP")) {
   //   int fbctl = 4;
   //   fbdev = 5;
@@ -45,6 +68,12 @@ void NDL_OpenCanvas(int *w, int *h) {
 }
 
 void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
+  int fd = open("/dev/fb", 0,"r");
+  for (int i = 0; i < h && y + i < canvas_h ; i++){
+    lseek(fd,((y + i +canvas_y) * screen_w + canvas_x + x),0);
+    write(fd,pixels + i*w,( w < canvas_w-x ? w : canvas_w-x));
+  }
+  close(fd);
 }
 
 void NDL_OpenAudio(int freq, int channels, int samples) {
