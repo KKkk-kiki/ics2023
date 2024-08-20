@@ -35,7 +35,7 @@ int main() {
         }
 
         // 短暂休眠以减少CPU占用
-        usleep(1000); // 休眠1毫秒
+        
     }
 
     return 0;
