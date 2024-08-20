@@ -1,6 +1,6 @@
 #include <NDL.h>
 #include <SDL.h>
-
+#include <string.h>
 #define keyname(k) #k,
 
 static const char *keyname[] = {
@@ -21,8 +21,8 @@ int SDL_PollEvent(SDL_Event *ev) {
 
 int SDL_WaitEvent(SDL_Event *event) {
   char buf[64];
-  char *k_type;
-  char *k_name;
+  char k_type[10];
+  char k_name[10];
   // ((char*)buf,len,"%s %s",ev.keydown ?"kd":"ku",keyname[ev.keycode]);
   // NDL_PollEvent(buf, sizeof(buf));
   // sscanf(buf,"%s %s",k_type,k_name);
