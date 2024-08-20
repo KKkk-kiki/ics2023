@@ -32,7 +32,7 @@ int SDL_WaitEvent(SDL_Event *event) {
       if(strcmp(k_type,"kd") ==0 ){
         keystatus = 1;
       }
-      if(strcmp(k_type,"ku") ==0 && keystatus ){
+      if((strcmp(k_type,"ku") ==0) && (keystatus==1) ){
         event->type = SDL_KEYDOWN;
         keystatus = 0;
       }
