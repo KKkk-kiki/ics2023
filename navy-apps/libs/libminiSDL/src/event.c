@@ -18,7 +18,7 @@ int SDL_PollEvent(SDL_Event *ev) {
   printf("Not implemented");
   return 0;
 }
-
+static int keystatus = 0;//0为up,1为down
 int SDL_WaitEvent(SDL_Event *event) {
   char buf[64];
   char k_type[10];
@@ -30,10 +30,11 @@ int SDL_WaitEvent(SDL_Event *event) {
   if(NDL_PollEvent(buf, sizeof(buf))){
       sscanf(buf,"%s %s",k_type,k_name);
       if(strcmp(k_type,"kd") ==0 ){
-        event->type = SDL_KEYDOWN;
+        keystatus = 1;
       }
-      if(strcmp(k_type,"ku") ==0 ){
-        event->type = SDL_KEYUP;
+      if(strcmp(k_type,"ku") ==0 && keystatus ){
+        event->type = SDL_KEYDOWN;
+        keystatus = 0;
       }
       for(int i = 0; i < sizeof(keyname)/sizeof(char *);i++){
         if(strcmp(keyname[i],k_name)==0){
