@@ -398,11 +398,30 @@ int sprintf(char *out, const char *fmt, ...) {
 }
 
 int snprintf(char *out, size_t n, const char *fmt, ...) {
-  panic("Not implemented");
+    va_list args;
+    va_start(args, fmt);
+    int result = vsnprintf(out, n, fmt, args);
+    va_end(args);
+    return result;
 }
 
-int vsnprintf(char *out, size_t n, const char *fmt, va_list ap) {
-  panic("Not implemented");
+int vsnprintf(char *out, size_t n, const char *fmt, va_list args) {
+    if (n == 0) {
+        // 如果缓冲区大小为0，直接返回所需的字符数
+        return vsnprintf(NULL, 0, fmt, args);
+    }
+
+    // 使用 vsnprintf 进行实际的格式化输出
+    int result = vsnprintf(out, n, fmt, args);
+
+    // 确保缓冲区以空字符结尾
+    if (result >= 0 && (size_t)result < n) {
+        out[result] = '\0';
+    } else if (result >= 0) {
+        out[n - 1] = '\0';
+    }
+
+    return result;
 }
 
 #undef ZEROPAD	/* pad with zero 填补0*/
