@@ -1,5 +1,6 @@
 #include <common.h>
 #include "syscall.h"
+#include <sys/time.h>
 #include <fs.h>
 extern void yield();
 void halt(int code);
@@ -34,6 +35,20 @@ size_t sys_read(int fd, void *buf, size_t len){
 size_t sys_lseek(int fd, size_t offset, int whence){
   return fs_lseek(fd, offset,  whence);
 }
+
+int sys_gettimeofday(struct timeval *tv, struct timezone *tz) {
+  uint64_t us = io_read(AM_TIMER_UPTIME).us;
+  tv -> tv_sec = us/1000000;
+  tv -> tv_usec = us - us/1000000*1000000;
+  return 0;
+}
+
+
+
+
+
+
+
 void do_syscall(Context *c) {
   uintptr_t a[4];
   a[0] = c->GPR1;
@@ -58,6 +73,8 @@ void do_syscall(Context *c) {
       c->GPRx = sys_read(a[1], (void *)a[2], a[3]);break;
     case SYS_lseek://8
       c->GPRx = sys_lseek(a[1], a[2], a[3]);break;
+    case SYS_gettimeofday://19
+      c->GPRx = sys_gettimeofday((struct timeval *)a[1], (struct timezone *)a[2]);break;
 
     default: panic("Unhandled syscall ID = %d", a[0]);
   }
