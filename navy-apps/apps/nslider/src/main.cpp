@@ -41,7 +41,7 @@ void next(int rep) {
   if (rep == 0) rep = 1;
   cur += rep;
   if (cur >= N) cur = N - 1;
-  printf("cur : %d",cur);
+  printf("cur : %d\n",cur);
   render();
 }
 
@@ -56,7 +56,7 @@ int main() {
   while (1) {
     SDL_Event e;
     SDL_WaitEvent(&e);
-
+    printf("rep %d\n",rep);
     if (e.type == SDL_KEYDOWN) {
       switch(e.key.keysym.sym) {
         case SDLK_0: rep = rep * 10 + 0; break;
