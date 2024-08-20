@@ -17,11 +17,11 @@ int main() {
     long elapsed_time;
 
     // 获取开始时间
-    gettimeofday(&start, NULL);
+    NDL_GetTicks(&start, NULL);
 
     while (1) {
         // 获取当前时间
-        gettimeofday(&now, NULL);
+        NDL_GetTicks(&now, NULL);
 
         // 计算从开始到现在经过的时间（微秒）
         elapsed_time = (now.tv_sec - start.tv_sec) * 1000000 + (now.tv_usec - start.tv_usec);

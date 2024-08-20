@@ -47,7 +47,7 @@ ARCHIVE  = $(WORK_DIR)/build/$(NAME)-$(ISA).a
 
 ### Add default libraries for ISA != native
 ifneq ($(ISA), native)
-LIBS += libc libos
+LIBS += libc libos libndl
 CFLAGS += -U_FORTIFY_SOURCE  # fix compile error in Newlib on ubuntu
 else
 WL = -Wl,
@@ -55,7 +55,7 @@ endif
 
 ### 32-bit ISA may need compiler-rt to support 64-bit mul/div
 ifneq ($(findstring $(ISA), x86|mips32|riscv32|riscv32e|loongarch32r),)
-LIBS += compiler-rt
+LIBS += compiler-rt 
 endif
 
 ### All libraries to add to the include path
