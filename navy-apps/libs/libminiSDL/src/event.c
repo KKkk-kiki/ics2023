@@ -24,22 +24,25 @@ int SDL_WaitEvent(SDL_Event *event) {
   char *k_type;
   char *k_name;
   // ((char*)buf,len,"%s %s",ev.keydown ?"kd":"ku",keyname[ev.keycode]);
-  if(NDL_PollEvent(buf, sizeof(buf))){
-      sscanf(buf,"%s %s",k_type,k_name);
-      if(strcmp(k_type,"kd") ==0 ){
-        event->type == SDL_KEYDOWN;
-      }
-      if(strcmp(k_type,"ku") ==0 ){
-        event->type == SDL_KEYUP;
-      }
-      for(int i = 0; i < sizeof(keyname)/sizeof(char *);i++){
-        if(strcmp(keyname[i],k_name)==0){
-          event->key.keysym.sym = i;
-          break;
-        }
-      }
-    return 1;
-  }
+  NDL_PollEvent(buf, sizeof(buf));
+  sscanf(buf,"%s %s",k_type,k_name);
+  printf("%s %s\n",k_type,k_name);
+  // if(NDL_PollEvent(buf, sizeof(buf))){
+  //     sscanf(buf,"%s %s",k_type,k_name);
+  //     if(strcmp(k_type,"kd") ==0 ){
+  //       event->type == SDL_KEYDOWN;
+  //     }
+  //     if(strcmp(k_type,"ku") ==0 ){
+  //       event->type == SDL_KEYUP;
+  //     }
+  //     for(int i = 0; i < sizeof(keyname)/sizeof(char *);i++){
+  //       if(strcmp(keyname[i],k_name)==0){
+  //         event->key.keysym.sym = i;
+  //         break;
+  //       }
+  //     }
+  //   return 1;
+  // }
   return 0;
 }
 
