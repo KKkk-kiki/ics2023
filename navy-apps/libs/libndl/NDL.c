@@ -21,8 +21,8 @@ int NDL_PollEvent(char *buf, int len) {
 
 void NDL_OpenCanvas(int *w, int *h) {
   int fd = open("/proc/dispinfo", 0,"r");
-  char *buf;
-  read(fd, buf, 64);
+  char buf[24];
+  read(fd, buf, sizeof(buf));
   sscanf(buf, "Width:%d\n HEIGHT:%d",w,h);
 
   // if (getenv("NWM_APP")) {
