@@ -46,9 +46,6 @@ int sys_gettimeofday(struct timeval *tv, struct timezone *tz) {
 
 
 
-
-
-
 void do_syscall(Context *c) {
   uintptr_t a[4];
   a[0] = c->GPR1;
