@@ -80,22 +80,20 @@ size_t fs_write(int fd, const void *buf, size_t len){
   size_t open_offset = file_table[fd].open_offset;
   size_t disk_offset = file_table[fd].disk_offset;
   size_t size = file_table[fd].size;
-  if (fd == 0){
-    Log("ignore write %s",file_table[fd].name);
+  if (file_table[fd].write != NULL){
+    return file_table[fd].write(buf,0,len);
+  }
+  else{
+    if (open_offset > size){
     return 0;
-  }
-  if (fd == 1 || fd == 2){
-    file_table[fd].write(buf, 0 ,len);
-  }
-  if (open_offset > size){
-    return 0;
-  }
-  if(open_offset + len > size){
+    }
+    if(open_offset + len > size){
     write_len = size - open_offset;
+    }
+    file_table[fd].open_offset += write_len;
+    return ramdisk_write(buf, disk_offset + open_offset, write_len);
   }
-
-  file_table[fd].open_offset += write_len;
-  return ramdisk_write(buf, disk_offset + open_offset, write_len);
+  
 };
 
 size_t fs_lseek(int fd, size_t offset, int whence){
