@@ -26,7 +26,7 @@ int SDL_WaitEvent(SDL_Event *event) {
   // ((char*)buf,len,"%s %s",ev.keydown ?"kd":"ku",keyname[ev.keycode]);
   // NDL_PollEvent(buf, sizeof(buf));
   // sscanf(buf,"%s %s",k_type,k_name);
-  // printf("%s %s\n",k_type,k_name);
+  printf("%s %s\n",k_type,k_name);
   if(NDL_PollEvent(buf, sizeof(buf))){
       sscanf(buf,"%s %s",k_type,k_name);
       if(strcmp(k_type,"kd") ==0 ){
