@@ -406,20 +406,21 @@ int snprintf(char *out, size_t n, const char *fmt, ...) {
 }
 
 int vsnprintf(char *out, size_t n, const char *fmt, va_list args) {
+    char buffer[1024]; // 临时缓冲区，用于存储格式化后的字符串
+    int result = vsprintf(buffer, fmt, args); // 使用现有的 vsprintf 实现
+
     if (n == 0) {
-        // 如果缓冲区大小为0，直接返回所需的字符数
-        return vsnprintf(NULL, 0, fmt, args);
+        return result; // 如果缓冲区大小为0，直接返回所需的字符数
     }
 
-    // 使用 vsnprintf 进行实际的格式化输出
-    int result = vsnprintf(out, n, fmt, args);
-
-    // 确保缓冲区以空字符结尾
-    if (result >= 0 && (size_t)result < n) {
-        out[result] = '\0';
-    } else if (result >= 0) {
-        out[n - 1] = '\0';
+    // 确保不会超出缓冲区大小
+    if (result >= n) {
+        result = n - 1; // 保留一个位置给终止空字符
     }
+
+    // 将格式化后的字符串复制到目标缓冲区
+    memcpy(out, buffer, result);
+    out[result] = '\0'; // 确保缓冲区以空字符结尾
 
     return result;
 }
