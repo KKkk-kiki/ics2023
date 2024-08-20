@@ -35,7 +35,7 @@ size_t dispinfo_read(void *buf, size_t offset, size_t len) {
   return snprintf((char*)buf,len,"Width:%d\n HEIGHT:%d",cfg.width,cfg.height);
 }
 
-size_t fb_write( void *buf, size_t offset, size_t len) {
+size_t fb_write(void *buf, size_t offset, size_t len) {
   AM_GPU_CONFIG_T cfg = io_read(AM_GPU_CONFIG);
   int x = offset - (int)(offset/cfg.width)*cfg.width;
   int y = (x == 0) ? (int)(offset/cfg.width):(int)(offset/cfg.width) + 1;
