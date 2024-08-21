@@ -37,6 +37,13 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
     // 获取源表面和目标表面的像素数据
     uint32_t *srcPixels = (uint32_t *)src->pixels;
     uint32_t *dstPixels = (uint32_t *)dst->pixels;
+    // uint32_t *pixels = (uint32_t *)surface->pixels;
+    //     for (int y = 0; y < height; y++) {
+    //         for (int x = 0; x < width; x++) {
+    //             uint32_t pixel = pixels[y * (pitch / 4) + x];
+    //             printf("Pixel at (%d, %d): 0x%08X\n", x, y, pixel);
+    //         }
+    //     }
 
     // 计算每像素字节数
     int bytesPerPixel = src->format->BytesPerPixel;
@@ -46,7 +53,7 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
         for (int x = 0; x < width; x++) {
             // 计算源像素和目标像素的地址
             // 复制像素数据
-            memcpy(dst->pixels + (dstY + y) * dst->pitch + (dstX + x) * bytesPerPixel, src->pixels + (srcY + y) * src->pitch + (srcX + x) * bytesPerPixel, bytesPerPixel);
+            memcpy(dstPixels + (dstY + y) * dst->pitch + (dstX + x) * bytesPerPixel, srcPixels + (srcY + y) * src->pitch + (srcX + x) * bytesPerPixel, bytesPerPixel);
         }
     }
     int w = 0;
