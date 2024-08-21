@@ -20,7 +20,7 @@ static int canvas_y;
 uint32_t NDL_GetTicks(struct timeval *tv, struct timezone *tz) {
   int result =  gettimeofday(tv, tz);
   uint32_t usec =  tv->tv_usec;
-  printf("s:%u\n",usec);
+  printf("s:%u\n",usec/100);
 
   uint64_t ticks = (tv->tv_sec * 1000) + (uint32_t)(tv->tv_usec / 1000);
   printf("here!!\n");
