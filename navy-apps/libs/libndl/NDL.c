@@ -21,11 +21,10 @@ uint32_t NDL_GetTicks(struct timeval *tv, struct timezone *tz) {
   int result =  gettimeofday(tv, tz);
   uint32_t usec =  tv->tv_usec;
   uint32_t sec =  tv->tv_sec;
-
   uint32_t ms1 = usec / (uint32_t )1000;
   uint32_t ms2 = sec * 1000;
-  // uint32_t ms = ms1 + ms2;
-  uint32_t ms = (tv->tv_sec) * (uint32_t )1000 + (tv->tv_usec)/ (uint32_t )1000;
+  uint32_t ms = sec * 1000 + usec / (uint32_t )1000;
+
   printf("here!!\n");
   printf("ticks: %u\n",ms);
   return ms;
