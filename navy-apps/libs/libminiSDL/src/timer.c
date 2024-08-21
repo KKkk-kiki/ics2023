@@ -14,12 +14,11 @@ uint32_t SDL_GetTicks() {
   struct timeval tv;
   static uint32_t start_ticks = 0;
     if (start_ticks == 0) {
-      printf("here");
         start_ticks = NDL_GetTicks(&tv,NULL); // 获取系统启动以来的 ticks 数
-          printf("ticks: %u\n",start_ticks);
     }
 
   uint32_t current_ticks = NDL_GetTicks(tv,NULL); // 获取当前 ticks 数
+  printf("ticks: %u\n",current_ticks - start_ticks);
   return (current_ticks - start_ticks); // 转换为毫秒
 }
 
