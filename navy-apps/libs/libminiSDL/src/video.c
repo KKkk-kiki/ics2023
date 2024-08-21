@@ -82,10 +82,10 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
         printf("BP %d \n",format->BytesPerPixel);
         switch (format->BytesPerPixel) {
             case 1: // 8-bit
-                *(uint8_t *)(dst->pixels + offset) = (uint8_t)color;
+                *(uint8_t *)(dst->pixels + offset) = (uint8_t)0xffffff;
                 break;
             case 2: // 16-bit
-                *(uint16_t *)(dst->pixels + offset) = (uint16_t)color;
+                *(uint16_t *)(dst->pixels + offset) = (uint16_t)0xffffff;
                 break;
             // // case 3: // 24-bit
             //     if (SDL_BYTEORDER == SDL_BIG_ENDIAN) {
