@@ -15,9 +15,7 @@ uint32_t SDL_GetTicks() {
   struct timezone *tz = NULL;
   static uint32_t start_ticks = 0;
     if (start_ticks == 0) {
-             printf("here!!\n");
         start_ticks = NDL_GetTicks(tv,tz); // 获取系统启动以来的 ticks 数
-                printf("!!\n");
     }
 
   uint32_t current_ticks = NDL_GetTicks(tv,tz); // 获取当前 ticks 数
