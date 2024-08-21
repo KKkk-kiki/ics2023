@@ -37,6 +37,9 @@ size_t sys_lseek(int fd, size_t offset, int whence){
 }
 
 int sys_gettimeofday(struct timeval *tv, struct timezone *tz) {
+  if (tv == NULL) {
+    return -1; // 返回错误码，表示参数无效
+  }
   uint64_t us = io_read(AM_TIMER_UPTIME).us;
   tv -> tv_sec = us/1000000;
   tv -> tv_usec = us - us/1000000*1000000;
