@@ -63,14 +63,14 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
 
 void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
 
-  SDL_Rect *new_dstrect = dstrect;
+
   if(dst == NULL){
     return;
   }
   if(dstrect == NULL){
-    new_dstrect = &(SDL_Rect){0,0,dst->w,dst->h};
+    *dstrect = (SDL_Rect){0,0,dst->w,dst->h};
   }
-  printf("fcheck: %d %d\n",new_dstrect->w , new_dstrect->h);
+  printf("fcheck: %d %d\n",dstrect->w , dstrect->h);
 
     //   // 获取表面的像素格式
     SDL_PixelFormat *format = dst->format;
