@@ -56,9 +56,7 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
     int h = 0;
   //设置画布全屏幕
     NDL_OpenCanvas(&w, &h);
-    printf("me!\n");
-    NDL_DrawRect((uint32_t *)dst->pixels, dstrect->x, dstrect->y, dstrect->w, dstrect->h) ;
-    printf("nome!\n");
+    NDL_DrawRect((uint32_t *)dst->pixels, dstX, dstY, width, height) ;
 
 }
 
