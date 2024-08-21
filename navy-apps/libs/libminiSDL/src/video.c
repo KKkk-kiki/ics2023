@@ -12,6 +12,7 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
   assert(dst->format->BitsPerPixel == src->format->BitsPerPixel);
   // 获取源矩形和目标矩形
     SDL_Rect srcRect = {0, 0, src->w, src->h};
+    printf("srcwh: %d %d\n",src->w, src->h);
     if (srcrect != NULL) {
         srcRect = *srcrect;
     }
@@ -20,7 +21,7 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
     if (dstrect!= NULL) {
         dstRect = *dstrect;
     }
-
+    printf("dstwh: %d %d\n",dstRect.w,dstRect.h);
     // 确保目标矩形的宽度和高度与源矩形一致
     if (dstRect.w == 0) {
         dstRect.w = srcRect.w;
