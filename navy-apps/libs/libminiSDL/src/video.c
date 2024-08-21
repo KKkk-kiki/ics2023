@@ -73,7 +73,7 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
 
     //   // 获取表面的像素格式
     SDL_PixelFormat *format = dst->format;
-
+    printf("pixels: %u\n",*(uint32_t *)(dst->pixels ));
     // // 将 RGBA 颜色转换为表面的像素格式
     uint32_t pixel_color = SDL_MapRGBA(format, (color >> 16) & 0xFF, (color >> 8) & 0xFF, color & 0xFF, (color >> 24) & 0xFF);
     // printf("color :%x\n",pixel_color);
