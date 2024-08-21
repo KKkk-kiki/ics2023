@@ -39,7 +39,6 @@ size_t fb_write(void *buf, size_t offset, size_t len) {
   AM_GPU_CONFIG_T cfg = io_read(AM_GPU_CONFIG);
   int x = offset % cfg.width;
   int y = (int)(offset/cfg.width);
-  printf("x:%d ,y: %d\n",x,y);
   io_write(AM_GPU_FBDRAW, x, y, buf, len, 1, true);
   return 0;
 }
