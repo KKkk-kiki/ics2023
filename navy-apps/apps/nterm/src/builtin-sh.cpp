@@ -42,5 +42,6 @@ void builtin_sh_run() {
       }
     }
     refresh_terminal();
+    SDL_Delay(500);
   }
 }
