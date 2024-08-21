@@ -16,9 +16,11 @@ static int canvas_h;
 static int canvas_x;
 static int canvas_y;
 
+// 以毫秒为单位返回系统时间
 uint32_t NDL_GetTicks(struct timeval *tv, struct timezone *tz) {
-  
-  return gettimeofday(tv, tz);
+  int result =  gettimeofday(tv, tz);
+  uint32_t ticks = (tv->tv_sec * 1000) + (tv->tv_usec / 1000);
+  return ticks;
 }
 
 int NDL_PollEvent(char *buf, int len) {

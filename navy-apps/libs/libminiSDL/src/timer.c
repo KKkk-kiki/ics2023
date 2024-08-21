@@ -11,7 +11,14 @@ int SDL_RemoveTimer(SDL_TimerID id) {
 }
 
 uint32_t SDL_GetTicks() {
-  return 0;
+  struct timeval *tv;
+  struct timezone *tz;
+  static uint32_t start_ticks = 0;
+    if (start_ticks == 0) {
+        start_ticks = NDL_GetTicks(tv,tz); // 获取系统启动以来的 ticks 数
+    }
+  uint32_t current_ticks = NDL_GetTicks(tv,tz); // 获取当前 ticks 数
+  return (current_ticks - start_ticks); // 转换为毫秒
 }
 
 void SDL_Delay(uint32_t ms) {

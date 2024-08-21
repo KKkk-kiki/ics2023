@@ -18,8 +18,8 @@ enum SDL_Keys {
 };
 
 enum SDL_EventType {
-  SDL_KEYDOWN,
   SDL_KEYUP,
+  SDL_KEYDOWN,
   SDL_USEREVENT,
 };
 
