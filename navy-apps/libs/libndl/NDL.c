@@ -19,7 +19,7 @@ static int canvas_y;
 // 以毫秒为单位返回系统时间
 uint32_t NDL_GetTicks(struct timeval *tv, struct timezone *tz) {
   int result =  gettimeofday(tv, tz);
-  printf("s:%lu\n",tv->tv_usec);
+  printf("s:%lu\n",tv->tv_usec/1000);
   uint64_t ticks = (tv->tv_sec * 1000) + (uint32_t)(tv->tv_usec / 1000);
   printf("here!!\n");
   printf("ticks: %lu/n",ticks);
