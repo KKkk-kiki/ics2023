@@ -3,7 +3,7 @@
 #include <assert.h>
 #include <string.h>
 #include <stdlib.h>
-
+#include<stdio.h>
 void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_Rect *dstrect) {
   assert(dst && src);
   assert(dst->format->BitsPerPixel == src->format->BitsPerPixel);
@@ -60,7 +60,7 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
 
 
 }
-#include<stdio.h>
+
 void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
 
 
@@ -76,8 +76,8 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
 
     // // 将 RGBA 颜色转换为表面的像素格式
     uint32_t pixel_color = SDL_MapRGBA(format, (color >> 16) & 0xFF, (color >> 8) & 0xFF, color & 0xFF, (color >> 24) & 0xFF);
-    printf("color :%x\n",pixel_color);
-    printf("format: %d\n",format->BytesPerPixel);
+    // printf("color :%x\n",pixel_color);
+    // printf("format: %d\n",format->BytesPerPixel);
     for (int y = dstrect->y; y < dstrect->y + dstrect->h; y++) {
     for (int x = dstrect->x; x < dstrect->x + dstrect->w; x++) {
         int offset = y * dst->pitch + x * format->BytesPerPixel;
@@ -110,7 +110,7 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
   //设置画布全屏幕
     NDL_OpenCanvas(&w, &h);
     NDL_DrawRect((uint32_t *)dst->pixels, dstrect->x, dstrect->y, dstrect->w, dstrect->h) ;
-
+    return ;
 
 }
 
@@ -118,6 +118,7 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
   //默认打开画布居中
   NDL_OpenCanvas(&w, &h);
   NDL_DrawRect((uint32_t *)s->pixels, x, y, w, h) ;
+  return ;
 }
 
 // APIs below are already implemented.
