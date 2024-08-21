@@ -39,7 +39,7 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
     uint8_t *dstPixels = (uint8_t *)dst->pixels;
 
     // 计算每像素字节数
-    int bytesPerPixel = src->format->BytesPerPixel;
+    int bytesPerPixel = dst->format->BytesPerPixel;
     printf("bytePerPix %d\n",bytesPerPixel);
     // 逐行复制像素数据
     for (int y = 0; y < height; y++) {
