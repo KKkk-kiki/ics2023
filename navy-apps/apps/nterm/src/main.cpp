@@ -46,6 +46,7 @@ void refresh_terminal() {
   static uint32_t last = 0;
   static int flip = 0;
   uint32_t now = SDL_GetTicks();
+  printf("here!!\n");
   if (now - last > 500 || needsync) {
     int x = term->cursor.x, y = term->cursor.y;
     uint32_t color = (flip ? term->foreground(x, y) : term->background(x, y));
@@ -56,7 +57,6 @@ void refresh_terminal() {
       last = now;
     }
   }
-  printf("here!!\n");
 }
 
 #define ENTRY(KEYNAME, NOSHIFT, SHIFT) { SDLK_##KEYNAME, #KEYNAME, NOSHIFT, SHIFT }
