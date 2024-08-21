@@ -40,15 +40,15 @@ void NDL_OpenCanvas(int *w, int *h) {
   read(fd, buf, sizeof(buf));
   close(fd);
   sscanf(buf, "Width:%d\n HEIGHT:%d",&screen_w,&screen_h);
-  if((*w == 0) && (*h == 0)){
+  if((*w <= 0) || (*h <= 0)){
     *w = screen_w;
     *h = screen_h;
     canvas_w = screen_w;
     canvas_h = screen_h;
   }
   else{
-    canvas_w = *w;
-    canvas_h = *h;
+    canvas_w = *w > screen_w ? screen_w :*w;
+    canvas_h = *h > screen_h ? screen_h :*h;
   }
   canvas_x = (screen_w - canvas_w)/2;
   canvas_y = (screen_h - canvas_h)/2;
