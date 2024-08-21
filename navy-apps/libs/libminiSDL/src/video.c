@@ -6,9 +6,9 @@
 #include<stdio.h>
 void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_Rect *dstrect) {
   
-  printf("dst:%x",dst && src);
-  // printf("src:%x",src);
-  // assert(dst && src);
+  // printf("dst:%x",dst && src);
+  // // printf("src:%x",src);
+  assert(dst && src);
   assert(dst->format->BitsPerPixel == src->format->BitsPerPixel);
   // 获取源矩形和目标矩形
     SDL_Rect srcRect = {0, 0, src->w, src->h};
@@ -36,10 +36,10 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
     int dstY = dstRect.y;
     int width = srcRect.w;
     int height = srcRect.h;
-    //  printf("%d %d %d %d %d %d\n",srcX,srcY,dstX,dstY,width,height);
+     printf("%d %d %d %d %d %d\n",srcX,srcY,dstX,dstY,width,height);
     // 获取源表面和目标表面的像素数据
-    uint32_t *srcPixels = (uint32_t *)src->pixels;
-    uint32_t *dstPixels = (uint32_t *)dst->pixels;
+    uint8_t *srcPixels = (uint8_t *)src->pixels;
+    uint8_t *dstPixels = (uint8_t *)dst->pixels;
     // uint32_t *pixels = (uint32_t *)surface->pixels;
     //     for (int y = 0; y < height; y++) {
     //         for (int x = 0; x < width; x++) {
