@@ -11,8 +11,8 @@ int SDL_RemoveTimer(SDL_TimerID id) {
 }
 
 uint32_t SDL_GetTicks() {
-  struct timeval *tv;
-  struct timezone *tz;
+  struct timeval *tv = NULL;
+  struct timezone *tz = NULL;
   static uint32_t start_ticks = 0;
     if (start_ticks == 0) {
         start_ticks = NDL_GetTicks(tv,tz); // 获取系统启动以来的 ticks 数
