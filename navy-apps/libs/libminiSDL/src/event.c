@@ -39,7 +39,7 @@ int SDL_PollEvent(SDL_Event *ev) {
     return 1;
   }
   else{
-    ev->type = SDL_KEYUP;
+    ev->type = SDL_NOEVENT;
     return 0;
   }
 }
