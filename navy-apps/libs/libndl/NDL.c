@@ -21,10 +21,11 @@ uint32_t NDL_GetTicks(struct timeval *tv, struct timezone *tz) {
   int result =  gettimeofday(tv, tz);
   uint32_t usec =  tv->tv_usec;
   uint32_t sec =  tv->tv_sec;
-  uint32_t ticks = (sec * 1000) + (usec / 1000);
+  uint32_t tks = 0;
+  tks = (sec * 1000) + (usec / 1000);
   printf("here!!\n");
-  printf("ticks: %u/n",ticks);
-  return ticks;
+  printf("ticks: %u/n",tks);
+  return tks;
 }
 
 int NDL_PollEvent(char *buf, int len) {
