@@ -2,7 +2,7 @@
 #include <SDL.h>
 #include <SDL_bdf.h>
 #include <stdio.h>
-static const char *font_fname = "/share/fonts/Courier-11.bdf";
+static const char *font_fname = "/share/fonts/Courier-9.bdf";
 static BDF_Font *font = NULL;
 static SDL_Surface *screen = NULL;
 Terminal *term = NULL;
