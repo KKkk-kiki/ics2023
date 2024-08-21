@@ -60,16 +60,12 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
             memcpy(dstPixels + (dstY + y) * dst->pitch + (dstX + x) * bytesPerPixel, srcPixels + (srcY + y) * src->pitch + (srcX + x) * bytesPerPixel, bytesPerPixel);
         }
     }
-    int w = 0;
-    int h = 0;
-  //设置画布全屏幕
-    NDL_OpenCanvas(&w, &h);
-    NDL_DrawRect((uint32_t *)dst->pixels, 0, 0, width, height) ;
-  //   NDL_OpenCanvas(&w, &h);
-  //   NDL_DrawRect((uint32_t *)dst->pixels, dstX, dstY, width, height) ;
-  printf("%d %d %d %d %d %d\n",srcX,srcY,dstX,dstY,width,height);
-    // SDL_UpdateRect(dst, dstX, dstY, width, height);
-    // SDL_UpdateRect(dst, 0,0,0,0);
+
+  // //   NDL_OpenCanvas(&w, &h);
+  // //   NDL_DrawRect((uint32_t *)dst->pixels, dstX, dstY, width, height) ;
+  // printf("%d %d %d %d %d %d\n",srcX,srcY,dstX,dstY,width,height);
+  //   // SDL_UpdateRect(dst, dstX, dstY, width, height);
+  //   // SDL_UpdateRect(dst, 0,0,0,0);
 
 }
 
