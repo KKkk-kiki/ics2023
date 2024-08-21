@@ -98,7 +98,7 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
             //     }
             //     break;
             case 4: // 32-bit
-                *(uint32_t *)(dst->pixels + offset) = pixel_color;
+                *(uint32_t *)(dst->pixels + offset) = color;
                 break;
         }
     }
