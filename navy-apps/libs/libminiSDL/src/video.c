@@ -35,8 +35,8 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
     int height = srcRect.h;
     //  printf("%d %d %d %d %d %d\n",srcX,srcY,dstX,dstY,width,height);
     // 获取源表面和目标表面的像素数据
-    // uint8_t *srcPixels = (uint8_t *)src->pixels;
-    // uint8_t *dstPixels = (uint8_t *)dst->pixels;
+    uint32_t *srcPixels = (uint32_t *)src->pixels;
+    uint32_t *dstPixels = (uint32_t *)dst->pixels;
 
     // 计算每像素字节数
     int bytesPerPixel = src->format->BytesPerPixel;
