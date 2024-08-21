@@ -48,7 +48,7 @@ int SDL_PollEvent(SDL_Event *ev) {
       if(strcmp(k_type,"kd") ==0 ){
         ev->type = SDL_KEYDOWN;
       }
-      if((strcmp(k_type,"ku") ==0) && (keystatus==1) ){
+      if((strcmp(k_type,"ku") ==0)){
         ev->type = SDL_KEYUP;
         // printf("%s %s\n",k_type,k_name);
       }
