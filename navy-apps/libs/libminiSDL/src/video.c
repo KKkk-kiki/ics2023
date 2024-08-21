@@ -8,7 +8,7 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
   
   printf("dst:%x",dst && src);
   // printf("src:%x",src);
-  assert(dst && src);
+  // assert(dst && src);
   assert(dst->format->BitsPerPixel == src->format->BitsPerPixel);
   // 获取源矩形和目标矩形
     SDL_Rect srcRect = {0, 0, src->w, src->h};
