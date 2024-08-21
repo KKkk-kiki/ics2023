@@ -5,6 +5,9 @@
 #include <stdlib.h>
 #include<stdio.h>
 void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_Rect *dstrect) {
+  
+  printf("dst:%x",dst);
+  printf("src:%x",src);
   assert(dst && src);
   assert(dst->format->BitsPerPixel == src->format->BitsPerPixel);
   // 获取源矩形和目标矩形
