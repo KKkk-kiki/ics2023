@@ -17,6 +17,8 @@ uint32_t SDL_GetTicks() {
     if (start_ticks == 0) {
         start_ticks = NDL_GetTicks(tv,tz); // 获取系统启动以来的 ticks 数
     }
+    printf("here!!\n");
+    printf("start :%u\n",start_ticks);
   uint32_t current_ticks = NDL_GetTicks(tv,tz); // 获取当前 ticks 数
   return (current_ticks - start_ticks); // 转换为毫秒
 }
