@@ -114,7 +114,7 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
 
 void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
   //默认打开画布居中
-  NDL_OpenCanvas(&w, &h);//若w,h为0,则w,h设置为全屏
+  // NDL_OpenCanvas(&w, &h);//若w,h为0,则w,h设置为全屏
   NDL_DrawRect((uint32_t *)s->pixels, x, y, w, h) ;
   return ;
 }
@@ -196,7 +196,7 @@ void SDL_FreeSurface(SDL_Surface *s) {
 
 SDL_Surface* SDL_SetVideoMode(int width, int height, int bpp, uint32_t flags) {
   if (flags & SDL_HWSURFACE) NDL_OpenCanvas(&width, &height);
-  return SDL_CreateRGBSurface(flags, 336, 208, bpp,
+  return SDL_CreateRGBSurface(flags, width, height, bpp,
       DEFAULT_RMASK, DEFAULT_GMASK, DEFAULT_BMASK, DEFAULT_AMASK);
 }
 
