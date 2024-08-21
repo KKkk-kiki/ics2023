@@ -7,9 +7,109 @@
 void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_Rect *dstrect) {
   assert(dst && src);
   assert(dst->format->BitsPerPixel == src->format->BitsPerPixel);
+  // 获取源矩形和目标矩形
+    SDL_Rect srcRect = {0, 0, src->w, src->h};
+    if (srcrect) {
+        srcRect = *srcrect;
+    }
+
+    SDL_Rect dstRect = {0, 0, srcRect.w, srcRect.h};
+    if (dstrect) {
+        dstRect = *dstrect;
+    }
+
+    // 确保目标矩形的宽度和高度与源矩形一致
+    if (dstRect.w == 0) {
+        dstRect.w = srcRect.w;
+    }
+    if (dstRect.h == 0) {
+        dstRect.h = srcRect.h;
+    }
+
+    // 计算源矩形和目标矩形的边界
+    int srcX = srcRect.x;
+    int srcY = srcRect.y;
+    int dstX = dstRect.x;
+    int dstY = dstRect.y;
+    int width = srcRect.w;
+    int height = srcRect.h;
+
+    // 获取源表面和目标表面的像素数据
+    uint8_t *srcPixels = (uint8_t *)src->pixels;
+    uint8_t *dstPixels = (uint8_t *)dst->pixels;
+
+    // 计算每像素字节数
+    int bytesPerPixel = src->format->BytesPerPixel;
+
+    // 逐行复制像素数据
+    for (int y = 0; y < height; y++) {
+        for (int x = 0; x < width; x++) {
+            // 计算源像素和目标像素的地址
+            uint8_t *srcPixel = srcPixels + (srcY + y) * src->pitch + (srcX + x) * bytesPerPixel;
+            uint8_t *dstPixel = dstPixels + (dstY + y) * dst->pitch + (dstX + x) * bytesPerPixel;
+
+            // 复制像素数据
+            memcpy(dstPixel, srcPixel, bytesPerPixel);
+        }
+    }
+    int w = 0;
+    int h = 0;
+  //设置画布全屏幕
+    NDL_OpenCanvas(&w, &h);
+    NDL_DrawRect((uint32_t *)dst->pixels, dstrect->x, dstrect->y, dstrect->w, dstrect->h) ;
+
+
 }
 
 void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
+
+
+  if(dst == NULL){
+    return;
+  }
+  if(dstrect == NULL){
+    dstrect = &(SDL_Rect){0,0,dst->w,dst->h};
+  }
+
+      // 获取表面的像素格式
+    SDL_PixelFormat *format = dst->format;
+
+    // 将 RGBA 颜色转换为表面的像素格式
+    uint32_t pixel_color = SDL_MapRGBA(format, (color >> 16) & 0xFF, (color >> 8) & 0xFF, color & 0xFF, (color >> 24) & 0xFF);
+    for (int y = dstrect->y; y < dstrect->y + dstrect->h; y++) {
+    for (int x = dstrect->x; x < dstrect->x + dstrect->w; x++) {
+        int offset = y * dst->pitch + x * format->BytesPerPixel;
+        switch (format->BytesPerPixel) {
+            // case 1: // 8-bit
+            //     *(uint8_t *)(dst->pixels + offset) = (uint8_t)pixel_color;
+            //     break;
+            // case 2: // 16-bit
+            //     *(uint16_t *)(dst->pixels + offset) = (uint16_t)pixel_color;
+            //     break;
+            // case 3: // 24-bit
+            //     if (SDL_BYTEORDER == SDL_BIG_ENDIAN) {
+            //         *(dst->pixels + offset) = (pixel_color >> 16) & 0xFF;
+            //         *(dst->pixels + offset + 1) = (pixel_color >> 8) & 0xFF;
+            //         *(dst->pixels + offset + 2) = pixel_color & 0xFF;
+            //     } else {
+            //         *(dst->pixels + offset) = pixel_color & 0xFF;
+            //         *(dst->pixels + offset + 1) = (pixel_color >> 8) & 0xFF;
+            //         *(dst->pixels + offset + 2) = (pixel_color >> 16) & 0xFF;
+            //     }
+            //     break;
+            case 4: // 32-bit
+                *(uint32_t *)(dst->pixels + offset) = pixel_color;
+                break;
+        }
+    }
+}
+    int w = 0;
+    int h = 0;
+  //设置画布全屏幕
+    NDL_OpenCanvas(&w, &h);
+    NDL_DrawRect((uint32_t *)dst->pixels, dstrect->x, dstrect->y, dstrect->w, dstrect->h) ;
+
+
 }
 
 void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
