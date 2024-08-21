@@ -78,7 +78,7 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
     // printf("color :%x\n",pixel_color);
     // printf("format: %d\n",format->BytesPerPixel);
     printf("pixels: %x\n",*(uint32_t *)(dst->pixels ));
-    printf("check: %d %d\n",dstrect->y , dstrect->h);
+    printf("check: %d %d\n",dst->w , dst->h);
     for (int i = dstrect->y; i < dstrect->y + dstrect->h; i++) {
     for (int j = dstrect->x; j < dstrect->x + dstrect->w; j++) {
         int offset = i * dst->pitch + j * format->BytesPerPixel;
