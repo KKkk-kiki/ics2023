@@ -115,12 +115,12 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
     }
     
       }
-    int w = 0;
-    int h = 0;
-  //设置画布全屏幕
-    NDL_OpenCanvas(&w, &h);
-    NDL_DrawRect((uint32_t *)dst->pixels, dstrect->x, dstrect->y, dstrect->w, dstrect->h) ;
-    return ;
+  //   int w = 0;
+  //   int h = 0;
+  // //设置画布全屏幕
+  //   NDL_OpenCanvas(&w, &h);
+  //   NDL_DrawRect((uint32_t *)dst->pixels, dstrect->x, dstrect->y, dstrect->w, dstrect->h) ;
+  //   return ;
 
 }
 
