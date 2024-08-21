@@ -60,7 +60,7 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
 
 
 }
-#include<stdio.h>
+
 void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
 
 
@@ -79,13 +79,12 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
     for (int y = dstrect->y; y < dstrect->y + dstrect->h; y++) {
     for (int x = dstrect->x; x < dstrect->x + dstrect->w; x++) {
         int offset = y * dst->pitch + x * format->BytesPerPixel;
-        printf("BP %d \n",format->BytesPerPixel);
         switch (format->BytesPerPixel) {
             case 1: // 8-bit
-                *(uint8_t *)(dst->pixels + offset) = (uint8_t)0xffffff;
+                *(uint8_t *)(dst->pixels + offset) = (uint8_t)pixel_color;
                 break;
             case 2: // 16-bit
-                *(uint16_t *)(dst->pixels + offset) = (uint16_t)0xffffff;
+                *(uint16_t *)(dst->pixels + offset) = (uint16_t)pixel_color;
                 break;
             // // case 3: // 24-bit
             //     if (SDL_BYTEORDER == SDL_BIG_ENDIAN) {
@@ -99,7 +98,7 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
             //     }
             //     break;
             case 4: // 32-bit
-                *(uint32_t *)(dst->pixels + offset) = 0xffffff;
+                *(uint32_t *)(dst->pixels + offset) = pixel_color;
                 break;
         }
     }
