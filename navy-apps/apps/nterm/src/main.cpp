@@ -56,6 +56,13 @@ void refresh_terminal() {
       last = now;
     }
   }
+
+  uint32_t t1 = 0;
+  uint32_t t2 = SDL_GetTicks();
+  while(t2-t1<1000){
+    t2 = SDL_GetTicks();
+  }
+  t1 = t2;
 }
 
 #define ENTRY(KEYNAME, NOSHIFT, SHIFT) { SDLK_##KEYNAME, #KEYNAME, NOSHIFT, SHIFT }

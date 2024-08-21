@@ -28,8 +28,8 @@ static void sh_handle_cmd(const char *cmd) {
 void builtin_sh_run() {
   sh_banner();
   sh_prompt();
-  int i = 1;
-  while (i) {
+
+  while (1) {
         
     SDL_Event ev;
     if (SDL_PollEvent(&ev)) {
@@ -42,6 +42,5 @@ void builtin_sh_run() {
       }
     }
     refresh_terminal();
-    i--;
   }
 }
