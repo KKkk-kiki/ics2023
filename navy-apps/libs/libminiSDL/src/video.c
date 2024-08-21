@@ -21,7 +21,7 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
     if (dstrect!= NULL) {
         dstRect = *dstrect;
     }
-    printf("dstwh: %d %d\n",dstRect.w,dstRect.h);
+    printf("dstxy: %d %d\n",dstRect.x,dstRect.y);
     // 确保目标矩形的宽度和高度与源矩形一致
     if (dstRect.w == 0) {
         dstRect.w = srcRect.w;
