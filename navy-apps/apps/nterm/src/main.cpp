@@ -17,10 +17,8 @@ int main(int argc, char *argv[]) {
   // setup display
   int win_w = font->w * W;
   int win_h = font->h * H;
-  printf("%d  %d\n",win_w,win_h);
   screen = SDL_SetVideoMode(win_w, win_h, 32, SDL_HWSURFACE);
   term = new Terminal(W, H);
-
   if (argc < 2) { builtin_sh_run(); }
   else { extern_app_run(argv[1]); }
 
@@ -30,9 +28,6 @@ int main(int argc, char *argv[]) {
 
 static void draw_ch(int x, int y, char ch, uint32_t fg, uint32_t bg) {
   SDL_Surface *s = BDF_CreateSurface(font, ch, fg, bg);
-  if(!s){
-    printf("fail\n");
-  }
   SDL_Rect dstrect = { .x = x, .y = y };
   SDL_BlitSurface(s, NULL, screen, &dstrect);
   SDL_FreeSurface(s);
