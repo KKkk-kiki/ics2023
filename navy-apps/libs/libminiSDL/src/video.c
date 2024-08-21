@@ -33,7 +33,7 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
     int dstY = dstRect.y;
     int width = srcRect.w;
     int height = srcRect.h;
-     printf("%d %d %d %d %d %d\n",srcX,srcY,dstX,dstY,width,height);
+    //  printf("%d %d %d %d %d %d\n",srcX,srcY,dstX,dstY,width,height);
     // 获取源表面和目标表面的像素数据
     uint8_t *srcPixels = (uint8_t *)src->pixels;
     uint8_t *dstPixels = (uint8_t *)dst->pixels;
@@ -56,6 +56,7 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
     int h = 0;
   //设置画布全屏幕
     NDL_OpenCanvas(&w, &h);
+    printf("me!\n");
     NDL_DrawRect((uint32_t *)dst->pixels, dstrect->x, dstrect->y, dstrect->w, dstrect->h) ;
 
 
