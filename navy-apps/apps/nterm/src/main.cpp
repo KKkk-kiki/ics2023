@@ -2,7 +2,7 @@
 #include <SDL.h>
 #include <SDL_bdf.h>
 #include <stdio.h>
-static const char *font_fname = "/share/fonts/Courier-13.bdf";
+static const char *font_fname = "/share/fonts/Courier-7.bdf";
 static BDF_Font *font = NULL;
 static SDL_Surface *screen = NULL;
 Terminal *term = NULL;
@@ -57,12 +57,12 @@ void refresh_terminal() {
     }
   }
 
-  uint32_t t1 = 0;
-  uint32_t t2 = SDL_GetTicks();
-  while(t2-t1<1000){
-    t2 = SDL_GetTicks();
-  }
-  t1 = t2;
+  // uint32_t t1 = 0;
+  // uint32_t t2 = SDL_GetTicks();
+  // while(t2-t1<1000){
+  //   t2 = SDL_GetTicks();
+  // }
+  // t1 = t2;
 }
 
 #define ENTRY(KEYNAME, NOSHIFT, SHIFT) { SDLK_##KEYNAME, #KEYNAME, NOSHIFT, SHIFT }
