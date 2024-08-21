@@ -45,18 +45,18 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
     for (int y = 0; y < height; y++) {
         for (int x = 0; x < width; x++) {
             // 计算源像素和目标像素的地址
-            uint8_t *srcPixel = srcPixels + (srcY + y) * src->pitch + (srcX + x) * bytesPerPixel;
-            uint8_t *dstPixel = dstPixels + (dstY + y) * dst->pitch + (dstX + x) * bytesPerPixel;
+            uint8_t *srcP = srcPixels + (srcY + y) * src->pitch + (srcX + x) * bytesPerPixel;
+            uint8_t *dstP = dstPixels + (dstY + y) * dst->pitch + (dstX + x) * bytesPerPixel;
 
             // 复制像素数据
-            memcpy(dstPixel, srcPixel, bytesPerPixel);
+            memcpy(dstP, srcP, bytesPerPixel);
         }
     }
     int w = 0;
     int h = 0;
   //设置画布全屏幕
     NDL_OpenCanvas(&w, &h);
-    NDL_DrawRect(dst->pixels, dstX, dstY, width, height) ;
+    NDL_DrawRect((uint32_t *)dst->pixels, dstX, dstY, width, height) ;
 
 }
 
