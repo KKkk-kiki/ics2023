@@ -61,7 +61,7 @@ int SDL_PollEvent(SDL_Event *ev) {
     return 1;
   }
   else{
-    ev->type = 3;
+    ev->type = SDL_NOEVENT;
     return 0;
   }
 }
