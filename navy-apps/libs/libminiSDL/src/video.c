@@ -67,8 +67,8 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
   //   NDL_DrawRect((uint32_t *)dst->pixels, dstX, dstY, width, height) ;
   //   NDL_OpenCanvas(&w, &h);
   //   NDL_DrawRect((uint32_t *)dst->pixels, dstX, dstY, width, height) ;
-    // SDL_UpdateRect(dst, dstX, dstY, width, height);
-    SDL_UpdateRect(dst, 0,0,0,0);
+    SDL_UpdateRect(dst, dstX, dstY, width, height);
+    // SDL_UpdateRect(dst, 0,0,0,0);
 
 }
 
