@@ -2,7 +2,7 @@
 #include <stdarg.h>
 #include <unistd.h>
 #include <SDL.h>
-
+#include <stdio.h>
 char handle_key(SDL_Event *ev);
 
 static void sh_printf(const char *format, ...) {
@@ -12,6 +12,7 @@ static void sh_printf(const char *format, ...) {
   int len = vsnprintf(buf, 256, format, ap);
   va_end(ap);
   term->write(buf, len);
+    printf("here!!\n");
 }
 
 static void sh_banner() {
