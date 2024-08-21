@@ -17,7 +17,6 @@ int main(int argc, char *argv[]) {
   // setup display
   int win_w = font->w * W;
   int win_h = font->h * H;
-  printf("wh%d %d\n",win_w,win_h);
   screen = SDL_SetVideoMode(win_w, win_h, 32, SDL_HWSURFACE);
   // screen = SDL_SetVideoMode(0, 0, 32, SDL_HWSURFACE);
   term = new Terminal(W, H);

@@ -195,8 +195,9 @@ void SDL_FreeSurface(SDL_Surface *s) {
 }
 
 SDL_Surface* SDL_SetVideoMode(int width, int height, int bpp, uint32_t flags) {
-  if (flags & SDL_HWSURFACE) NDL_OpenCanvas(&width, &height);
-  return SDL_CreateRGBSurface(flags, width, height, bpp,
+  int w = 0;int h = 0;
+  if (flags & SDL_HWSURFACE) NDL_OpenCanvas(&w, &h);
+  return SDL_CreateRGBSurface(flags, 336, 208, bpp,
       DEFAULT_RMASK, DEFAULT_GMASK, DEFAULT_BMASK, DEFAULT_AMASK);
 }
 
