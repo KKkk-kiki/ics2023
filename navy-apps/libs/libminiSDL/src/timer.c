@@ -11,13 +11,13 @@ int SDL_RemoveTimer(SDL_TimerID id) {
 }
 
 uint32_t SDL_GetTicks() {
-        printf("!!\n");
   struct timeval *tv = NULL;
   struct timezone *tz = NULL;
   static uint32_t start_ticks = 0;
     if (start_ticks == 0) {
              printf("here!!\n");
         start_ticks = NDL_GetTicks(tv,tz); // 获取系统启动以来的 ticks 数
+                printf("!!\n");
     }
 
   uint32_t current_ticks = NDL_GetTicks(tv,tz); // 获取当前 ticks 数
