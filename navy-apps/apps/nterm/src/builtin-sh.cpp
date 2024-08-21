@@ -12,7 +12,6 @@ static void sh_printf(const char *format, ...) {
   int len = vsnprintf(buf, 256, format, ap);
   va_end(ap);
   term->write(buf, len);
-    printf("here!!\n");
 }
 
 static void sh_banner() {
@@ -31,6 +30,7 @@ void builtin_sh_run() {
   sh_prompt();
 
   while (1) {
+        printf("here!!\n");
     SDL_Event ev;
     if (SDL_PollEvent(&ev)) {
       if (ev.type == SDL_KEYUP || ev.type == SDL_KEYDOWN) {
