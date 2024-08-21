@@ -71,22 +71,22 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
     dstrect = &(SDL_Rect){0,0,dst->w,dst->h};
   }
 
-      // 获取表面的像素格式
+    //   // 获取表面的像素格式
     SDL_PixelFormat *format = dst->format;
 
-    // 将 RGBA 颜色转换为表面的像素格式
-    uint32_t pixel_color = SDL_MapRGBA(format, (color >> 16) & 0xFF, (color >> 8) & 0xFF, color & 0xFF, (color >> 24) & 0xFF);
+    // // 将 RGBA 颜色转换为表面的像素格式
+    // uint32_t pixel_color = SDL_MapRGBA(format, (color >> 16) & 0xFF, (color >> 8) & 0xFF, color & 0xFF, (color >> 24) & 0xFF);
     for (int y = dstrect->y; y < dstrect->y + dstrect->h; y++) {
     for (int x = dstrect->x; x < dstrect->x + dstrect->w; x++) {
         int offset = y * dst->pitch + x * format->BytesPerPixel;
         switch (format->BytesPerPixel) {
-            case 1: // 8-bit
-                *(uint8_t *)(dst->pixels + offset) = (uint8_t)pixel_color;
-                break;
-            case 2: // 16-bit
-                *(uint16_t *)(dst->pixels + offset) = (uint16_t)pixel_color;
-                break;
-            // case 3: // 24-bit
+            // case 1: // 8-bit
+            //     *(uint8_t *)(dst->pixels + offset) = (uint8_t)pixel_color;
+            //     break;
+            // case 2: // 16-bit
+            //     *(uint16_t *)(dst->pixels + offset) = (uint16_t)pixel_color;
+            //     break;
+            // // case 3: // 24-bit
             //     if (SDL_BYTEORDER == SDL_BIG_ENDIAN) {
             //         *(dst->pixels + offset) = (pixel_color >> 16) & 0xFF;
             //         *(dst->pixels + offset + 1) = (pixel_color >> 8) & 0xFF;
