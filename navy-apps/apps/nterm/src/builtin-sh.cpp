@@ -41,7 +41,6 @@ void builtin_sh_run() {
         }
       }
     }
-    printf("here!!\n");
     refresh_terminal();
   }
 }
