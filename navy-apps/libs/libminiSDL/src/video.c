@@ -70,20 +70,16 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
 
   SDL_Rect *new_dstrect = &(SDL_Rect){0,0,dst->w,dst->h};
   if(dstrect == NULL){
-    // dstrect = &(SDL_Rect){0,0,dst->w,dst->h};
-    // SDL_Rect *new_dstrect = &(SDL_Rect){0,0,dst->w,dst->h};
     dstrect = new_dstrect;
   }
-  printf("fcheck: %d %d\n",dstrect->w , dstrect->h);
-
     //   // 获取表面的像素格式
     SDL_PixelFormat *format = dst->format;
     // // 将 RGBA 颜色转换为表面的像素格式
     uint32_t pixel_color = SDL_MapRGBA(format, (color >> 16) & 0xFF, (color >> 8) & 0xFF, color & 0xFF, (color >> 24) & 0xFF);
     // printf("color :%x\n",pixel_color);
     // printf("format: %d\n",format->BytesPerPixel);
-    printf("pixels: %x\n",*(uint32_t *)(dst->pixels ));
-    printf("check: %d %d\n",dst->w , dst->h);
+    // printf("pixels: %x\n",*(uint32_t *)(dst->pixels ));
+    // printf("check: %d %d\n",dst->w , dst->h);
     for (int i = dstrect->y; i < dstrect->y + dstrect->h; i++) {
     for (int j = dstrect->x; j < dstrect->x + dstrect->w; j++) {
         int offset = i * dst->pitch + j * format->BytesPerPixel;
@@ -106,7 +102,7 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
             //     }
             //     break;
             case 4: // 32-bit
-                *(uint32_t *)(dst->pixels + offset) = color;
+                *(uint32_t *)(dst->pixels + offset) = pixel_color;
                 break;
         }
     }
