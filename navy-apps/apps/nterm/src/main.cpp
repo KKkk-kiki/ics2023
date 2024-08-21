@@ -43,7 +43,6 @@ void refresh_terminal() {
         needsync = 1;
       }
   term->clear();
-  printf("here!!\n");
   static uint32_t last = 0;
   static int flip = 0;
   uint32_t now = SDL_GetTicks();
@@ -57,6 +56,7 @@ void refresh_terminal() {
       last = now;
     }
   }
+  printf("here!!\n");
 }
 
 #define ENTRY(KEYNAME, NOSHIFT, SHIFT) { SDLK_##KEYNAME, #KEYNAME, NOSHIFT, SHIFT }
