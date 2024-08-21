@@ -81,10 +81,10 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
         int offset = y * dst->pitch + x * format->BytesPerPixel;
         switch (format->BytesPerPixel) {
             case 1: // 8-bit
-                *(uint8_t *)(dst->pixels + offset) = (uint8_t)pixel_color;
+                *(uint8_t *)(dst->pixels + offset) = (uint8_t)color;
                 break;
             case 2: // 16-bit
-                *(uint16_t *)(dst->pixels + offset) = (uint16_t)pixel_color;
+                *(uint16_t *)(dst->pixels + offset) = (uint16_t)color;
                 break;
             // // case 3: // 24-bit
             //     if (SDL_BYTEORDER == SDL_BIG_ENDIAN) {
@@ -98,7 +98,7 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
             //     }
             //     break;
             case 4: // 32-bit
-                *(uint32_t *)(dst->pixels + offset) = pixel_color;
+                *(uint32_t *)(dst->pixels + offset) = color;
                 break;
         }
     }
