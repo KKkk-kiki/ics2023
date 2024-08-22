@@ -53,7 +53,6 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
     // 逐行复制像素数据
     for (int y = 0; y < height; y++) {
        memcpy(dstPixels + (dstY + y) * dst->pitch + (dstX) * bytesPerPixel, srcPixels + (srcY + y) * src->pitch + (srcX ) * bytesPerPixel,width* bytesPerPixel);
-       printf("height :%d, i:%d\n",height,y);
     }
 
 }
@@ -133,6 +132,7 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
             // printf("%d: %x\n",i,rgba);
             // 将32位RGBA值写入目标表面
             dstPixels[i * dst->w + j] = rgba;
+            printf("h:%d,w:%d, i:%d,j:%d\n",s->h,s->w,i,j);
         }
     }
     NDL_DrawRect(dstPixels, x, y, w, h) ;
