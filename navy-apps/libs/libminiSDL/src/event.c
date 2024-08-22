@@ -121,7 +121,6 @@ int SDL_PeepEvents(SDL_Event *ev, int numevents, int action, uint32_t mask) {
 }
 
 uint8_t* SDL_GetKeyState(int *numkeys) {
-  static uint8_t key_state[SDL_NUM_SCANCODES] = {0};
 
   if (numkeys != NULL) {
     *numkeys = SDL_NUM_SCANCODES;
