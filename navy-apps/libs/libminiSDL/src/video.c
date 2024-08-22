@@ -52,13 +52,14 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
     // printf("bytePerPix %d\n",bytesPerPixel);
     // 逐行复制像素数据
     for (int y = 0; y < height; y++) {
-        for (int x = 0; x < width; x++) {
-            // 计算源像素和目标像素的地址
-            // 复制像素数据
-            // uint32_t pixel = dstPixels + (dstY + y) * dst->pitch + (dstX + x) * bytesPerPixel;
-            // printf("Pixel at (%d, %d): 0x%08X\n", x, y, pixel);
-            memcpy(dstPixels + (dstY + y) * dst->pitch + (dstX + x) * bytesPerPixel, srcPixels + (srcY + y) * src->pitch + (srcX + x) * bytesPerPixel, bytesPerPixel);
-        }
+       memcpy(dstPixels + (dstY + y) * dst->pitch + (dstX) * bytesPerPixel, srcPixels + (srcY + y) * src->pitch + (srcX ) * bytesPerPixel,width* bytesPerPixel);
+        // for (int x = 0; x < width; x++) {
+        //     // 计算源像素和目标像素的地址
+        //     // 复制像素数据
+        //     // uint32_t pixel = dstPixels + (dstY + y) * dst->pitch + (dstX + x) * bytesPerPixel;
+        //     // printf("Pixel at (%d, %d): 0x%08X\n", x, y, pixel);
+        //     memcpy(dstPixels + (dstY + y) * dst->pitch + (dstX + x) * bytesPerPixel, srcPixels + (srcY + y) * src->pitch + (srcX + x) * bytesPerPixel, bytesPerPixel);
+        // }
     }
 
 }
