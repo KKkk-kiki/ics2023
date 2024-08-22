@@ -122,17 +122,18 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
     for (int i = 0; i < s->h; i++) {
         for (int j = 0; j < s->w; j++) {
             // 获取像素索引
-            uint8_t pixelIndex = sPixels[i * s->pitch + j];
+            uint8_t pixelIndex = sPixels[i * s->w + j];
 
             // 从调色板中获取RGB颜色值
             SDL_Color color = palette->colors[pixelIndex];
 
             // 将RGB颜色值转换为32位RGBA格式
-            uint32_t rgba = (0 << 24) | (color.r << 16) | (color.g << 8) | color.b;
-            printf("%d: %x\n",i,rgba);
+            uint32_t rgba = (255 << 24) | (color.r << 16) | (color.g << 8) | color.b;
+            // printf("%d: %x\n",i,rgba);
             // 将32位RGBA值写入目标表面
             dstPixels[i * dst->w + j] = rgba;
         }
+        printf("%d: %x\n",i,dstPixels[i * dst->w]);
     }
     NDL_DrawRect(dstPixels, x, y, w, h) ;
     return;
