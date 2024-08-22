@@ -22,6 +22,9 @@ int SDL_PollEvent(SDL_Event *ev) {
   char buf[64];
   char k_type[10];
   char k_name[10];
+      for(int i = 0; i < sizeof(keyname)/sizeof(char *);i++){
+            key_state[i] = 0; 
+    }
   // ((char*)buf,len,"%s %s",ev.keydown ?"kd":"ku",keyname[ev.keycode]);
   // NDL_PollEvent(buf, sizeof(buf));
   // sscanf(buf,"%s %s",k_type,k_name);
@@ -76,9 +79,6 @@ int SDL_PollEvent(SDL_Event *ev) {
   }
   else{
     ev->type = SDL_NOEVENT;
-    for(int i = 0; i < sizeof(keyname)/sizeof(char *);i++){
-            key_state[i] = 0; 
-    }
     return 0;
   }
 }
