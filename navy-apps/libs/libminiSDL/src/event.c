@@ -3,6 +3,11 @@
 #include <string.h>
 #define keyname(k) #k,
 static int keystatus = 0;//0为up,1为down
+
+#define SDL_NUM_SCANCODES 512
+static uint8_t key_state[SDL_NUM_SCANCODES] = {0};
+
+
 static const char *keyname[] = {
   "NONE",
   _KEYS(keyname)
@@ -47,17 +52,26 @@ int SDL_PollEvent(SDL_Event *ev) {
       sscanf(buf,"%s %s",k_type,k_name);
       if(strcmp(k_type,"kd") ==0 ){
         ev->type = SDL_KEYDOWN;
+      for (int i = 0; i < sizeof(keyname) / sizeof(char *); i++) {
+        if (strcmp(keyname[i], k_name) == 0) {
+          ev->key.keysym.sym = i;
+          key_state[i] = 1; // 更新键盘状态
+          break;
+        }
+      }
       }
       if((strcmp(k_type,"ku") ==0)){
         ev->type = SDL_KEYUP;
-        // printf("%s %s\n",k_type,k_name);
-      }
-    for(int i = 0; i < sizeof(keyname)/sizeof(char *);i++){
-      if(strcmp(keyname[i],k_name)==0){
+      for(int i = 0; i < sizeof(keyname)/sizeof(char *);i++){
+        if(strcmp(keyname[i],k_name)==0){
             ev->key.keysym.sym = i;
+            key_state[i] = 0; 
             break;
         }
     }
+        // printf("%s %s\n",k_type,k_name);
+      }
+
     return 1;
   }
   else{
@@ -103,6 +117,14 @@ int SDL_PeepEvents(SDL_Event *ev, int numevents, int action, uint32_t mask) {
 }
 
 uint8_t* SDL_GetKeyState(int *numkeys) {
-  printf("Not implemented me\n");
-  return NULL;
+  static uint8_t key_state[SDL_NUM_SCANCODES] = {0};
+
+  if (numkeys != NULL) {
+    *numkeys = SDL_NUM_SCANCODES;
+  }
+
+  // 这里可以添加逻辑来更新 key_state 数组
+  // 例如，从 NDL_PollEvent 获取的按键状态更新到 key_state
+
+  return key_state;
 }
