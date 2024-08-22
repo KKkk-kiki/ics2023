@@ -135,8 +135,9 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
             dstPixels[i * dst->w + j] = rgba;
         }
     }
+    printf("finish1\n");
     NDL_DrawRect(dstPixels, x, y, w, h) ;
-    printf("finish\n");
+    printf("finish2\n");
     return;
 
   }
