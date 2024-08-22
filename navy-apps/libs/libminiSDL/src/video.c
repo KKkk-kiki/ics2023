@@ -107,6 +107,7 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
 }
 
 void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
+  printf("start\n");
   //默认打开画布居中
   // NDL_OpenCanvas(&w, &h);//若w,h为0,则w,h设置为全屏
   int bytesPerPixel = s->format->BytesPerPixel;
@@ -132,10 +133,10 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
             // printf("%d: %x\n",i,rgba);
             // 将32位RGBA值写入目标表面
             dstPixels[i * dst->w + j] = rgba;
-            printf("h:%d,w:%d, i:%d,j:%d\n",s->h,s->w,i,j);
         }
     }
     NDL_DrawRect(dstPixels, x, y, w, h) ;
+    printf("finish\n");
     return;
 
   }
