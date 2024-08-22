@@ -115,7 +115,6 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
      // 创建一个新的32位深度的SDL_Surface
     SDL_Surface *dst = SDL_CreateRGBSurface(0, s->w, s->h, 32, 0xFF000000, 0x00FF0000, 0x0000FF00, 0x000000FF);
     assert(dst);
-    printf("%d %d\n",dst->w,s->w);
     SDL_Palette *palette = s->format->palette;
     uint32_t *dstPixels = (uint32_t *)dst->pixels;
     uint8_t *sPixels = (uint8_t *)s->pixels;
@@ -130,7 +129,7 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
 
             // 将RGB颜色值转换为32位RGBA格式
             uint32_t rgba = (0 << 24) | (color.r << 16) | (color.g << 8) | color.b;
-
+            printf("%d: %x\n",i,rgba);
             // 将32位RGBA值写入目标表面
             dstPixels[i * dst->w + j] = rgba;
         }
