@@ -107,7 +107,6 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
 }
 
 void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
-  printf("start\n");
   //默认打开画布居中
   // NDL_OpenCanvas(&w, &h);//若w,h为0,则w,h设置为全屏
   int bytesPerPixel = s->format->BytesPerPixel;
