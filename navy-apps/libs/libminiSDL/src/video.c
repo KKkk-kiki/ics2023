@@ -53,13 +53,6 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
     // 逐行复制像素数据
     for (int y = 0; y < height; y++) {
        memcpy(dstPixels + (dstY + y) * dst->pitch + (dstX) * bytesPerPixel, srcPixels + (srcY + y) * src->pitch + (srcX ) * bytesPerPixel,width* bytesPerPixel);
-        // for (int x = 0; x < width; x++) {
-        //     // 计算源像素和目标像素的地址
-        //     // 复制像素数据
-        //     // uint32_t pixel = dstPixels + (dstY + y) * dst->pitch + (dstX + x) * bytesPerPixel;
-        //     // printf("Pixel at (%d, %d): 0x%08X\n", x, y, pixel);
-        //     memcpy(dstPixels + (dstY + y) * dst->pitch + (dstX + x) * bytesPerPixel, srcPixels + (srcY + y) * src->pitch + (srcX + x) * bytesPerPixel, bytesPerPixel);
-        // }
     }
 
 }
@@ -77,8 +70,8 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
   }
     //   // 获取表面的像素格式
     SDL_PixelFormat *format = dst->format;
-    // // 将 RGBA 颜色转换为表面的像素格式
-    uint32_t pixel_color = SDL_MapRGBA(format, (color >> 16) & 0xFF, (color >> 8) & 0xFF, color & 0xFF, (color >> 24) & 0xFF);
+    // // // 将 RGBA 颜色转换为表面的像素格式
+    // uint32_t pixel_color = SDL_MapRGBA(format, (color >> 16) & 0xFF, (color >> 8) & 0xFF, color & 0xFF, (color >> 24) & 0xFF);
     // printf("color :%x\n",pixel_color);
     // printf("format: %d\n",format->BytesPerPixel);
     // printf("pixels: %x\n",*(uint32_t *)(dst->pixels ));
@@ -88,10 +81,10 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
         int offset = i * dst->pitch + j * format->BytesPerPixel;
         switch (format->BytesPerPixel) {
             case 1: // 8-bit
-                *(uint8_t *)(dst->pixels + offset) = (uint8_t)pixel_color;
+                *(uint8_t *)(dst->pixels + offset) = (uint8_t)color;
                 break;
             case 2: // 16-bit
-                *(uint16_t *)(dst->pixels + offset) = (uint16_t)pixel_color;
+                *(uint16_t *)(dst->pixels + offset) = (uint16_t)color;
                 break;
             // // case 3: // 24-bit
             //     if (SDL_BYTEORDER == SDL_BIG_ENDIAN) {
@@ -105,7 +98,7 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
             //     }
             //     break;
             case 4: // 32-bit
-                *(uint32_t *)(dst->pixels + offset) = pixel_color;
+                *(uint32_t *)(dst->pixels + offset) = color;
                 break;
         }
     }
@@ -116,8 +109,40 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
 void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
   //默认打开画布居中
   // NDL_OpenCanvas(&w, &h);//若w,h为0,则w,h设置为全屏
-  NDL_DrawRect((uint32_t *)s->pixels, x, y, w, h) ;
-  return ;
+  int bytesPerPixel = s->format->BytesPerPixel;
+      // 获取源表面的调色板
+  if(bytesPerPixel == 1){
+     // 创建一个新的32位深度的SDL_Surface
+    SDL_Surface *dst = SDL_CreateRGBSurface(0, s->w, s->h, 32, 0xFF000000, 0x00FF0000, 0x0000FF00, 0x000000FF);
+    assert(dst);
+    SDL_Palette *palette = s->format->palette;
+    uint32_t *dstPixels = (uint32_t *)dst->pixels;
+    uint8_t *sPixels = (uint8_t *)s->pixels;
+    // 遍历源表面的每个像素
+    for (int i = 0; i < s->h; i++) {
+        for (int j = 0; j < s->w; j++) {
+            // 获取像素索引
+            uint8_t pixelIndex = sPixels[i * s->pitch + j];
+
+            // 从调色板中获取RGB颜色值
+            SDL_Color color = palette->colors[pixelIndex];
+
+            // 将RGB颜色值转换为32位RGBA格式
+            uint32_t rgba = (255 << 24) | (color.r << 16) | (color.g << 8) | color.b;
+
+            // 将32位RGBA值写入目标表面
+            dstPixels[i * dst->w + j] = rgba;
+        }
+    }
+    NDL_DrawRect(dstPixels, x, y, w, h) ;
+    return;
+
+  }
+  if(bytesPerPixel == 4){
+    NDL_DrawRect((uint32_t *)s->pixels, x, y, w, h) ;
+    return ;
+
+  }
 }
 
 // APIs below are already implemented.
