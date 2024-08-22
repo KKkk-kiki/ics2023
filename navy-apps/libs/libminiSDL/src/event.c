@@ -61,21 +61,24 @@ int SDL_PollEvent(SDL_Event *ev) {
       }
       return 1;
       }
-      if((strcmp(k_type,"ku") ==0)){
-        ev->type = SDL_KEYUP;
-      for(int i = 0; i < sizeof(keyname)/sizeof(char *);i++){
-        if(strcmp(keyname[i],k_name)==0){
-            ev->key.keysym.sym = i;
-            key_state[i] = 0; 
-            break;
-        }
-    }
-        // printf("%s %s\n",k_type,k_name);
-        return 1;
-      }
+    //   if((strcmp(k_type,"ku") ==0)){
+    //     ev->type = SDL_KEYUP;
+    //   for(int i = 0; i < sizeof(keyname)/sizeof(char *);i++){
+    //     if(strcmp(keyname[i],k_name)==0){
+    //         ev->key.keysym.sym = i;
+    //         key_state[i] = 0; 
+    //         break;
+    //     }
+    // }
+    //     // printf("%s %s\n",k_type,k_name);
+    //     return 1;
+    //   }
   }
   else{
     ev->type = SDL_NOEVENT;
+    for(int i = 0; i < sizeof(keyname)/sizeof(char *);i++){
+            key_state[i] = 0; 
+    }
     return 0;
   }
 }
