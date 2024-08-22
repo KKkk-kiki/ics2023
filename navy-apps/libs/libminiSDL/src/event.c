@@ -59,7 +59,6 @@ int SDL_PollEvent(SDL_Event *ev) {
         if (strcmp(keyname[i], k_name) == 0) {
           ev->key.keysym.sym = i;
           key_state[i] = 1; // 更新键盘状态
-          printf("i:%d\n",i);
           break;
         }
       }
