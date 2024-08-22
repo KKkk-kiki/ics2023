@@ -53,6 +53,7 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
     // 逐行复制像素数据
     for (int y = 0; y < height; y++) {
        memcpy(dstPixels + (dstY + y) * dst->pitch + (dstX) * bytesPerPixel, srcPixels + (srcY + y) * src->pitch + (srcX ) * bytesPerPixel,width* bytesPerPixel);
+       printf("height :%d, i:%d\n",height,y);
     }
 
 }
