@@ -59,6 +59,7 @@ int SDL_PollEvent(SDL_Event *ev) {
           break;
         }
       }
+      return 1;
       }
       if((strcmp(k_type,"ku") ==0)){
         ev->type = SDL_KEYUP;
@@ -70,9 +71,8 @@ int SDL_PollEvent(SDL_Event *ev) {
         }
     }
         // printf("%s %s\n",k_type,k_name);
+        return 1;
       }
-
-    return 1;
   }
   else{
     ev->type = SDL_NOEVENT;

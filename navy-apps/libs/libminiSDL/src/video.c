@@ -133,7 +133,6 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
             // 将32位RGBA值写入目标表面
             dstPixels[i * dst->w + j] = rgba;
         }
-        printf("%d: %x\n",i, palette->colors[sPixels[i * s->w]]);
     }
     NDL_DrawRect(dstPixels, x, y, w, h) ;
     return;
