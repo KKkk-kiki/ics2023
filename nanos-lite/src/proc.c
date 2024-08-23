@@ -25,7 +25,7 @@ void init_proc() {
   Log("Initializing processes...");
 
   // load program here
-  naive_uload(NULL, "/share/games/nes/100in1.nes");
+  naive_uload(NULL, "/bin/dhrystone");
 }
 
 Context* schedule(Context *prev) {
