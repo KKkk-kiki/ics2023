@@ -25,7 +25,7 @@ void init_proc() {
   Log("Initializing processes...");
 
   // load program here
-  naive_uload(NULL, "/bin/dhrystone");
+  naive_uload(NULL, "/bin/coremark");
 }
 
 Context* schedule(Context *prev) {
