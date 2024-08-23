@@ -32,6 +32,7 @@ static Finfo file_table[] __attribute__((used)) = {
   {"/dev/events", 0, 0, events_read, invalid_write},
   {"/proc/dispinfo", 0, 0, dispinfo_read, invalid_write},
   {"/dev/fb", 0, 0, invalid_read, fb_write},
+  {"/dev/am_ioe", 128, 0, am_ioe_read, am_ioe_write},
 #include "files.h"
 };
 
@@ -64,7 +65,7 @@ size_t fs_read(int fd, void *buf, size_t len){
   size_t disk_offset = file_table[fd].disk_offset;
   size_t size = file_table[fd].size;
   if (file_table[fd].read != NULL){
-    return file_table[fd].read(buf,0,len);
+    return file_table[fd].read(buf,open_offset,len);
   }
   else{
     if (open_offset > size){

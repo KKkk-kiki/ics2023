@@ -43,6 +43,20 @@ size_t fb_write(void *buf, size_t offset, size_t len) {
   return 0;
 }
 
+size_t am_ioe_read(void *buf, size_t offset, size_t len) {
+  // io_write(AM_GPU_FBDRAW, x, y, buf, len, 1, true);
+  ioe_read ((int) offset, buf);
+  return 0;
+}
+
+
+size_t am_ioe_write(void *buf, size_t offset, size_t len) {
+
+  // io_write(AM_GPU_FBDRAW, x, y, buf, len, 1, true);
+  ioe_write((int) offset, buf);
+  return 0;
+}
+
 void init_device() {
   Log("Initializing devices...");
   ioe_init();
