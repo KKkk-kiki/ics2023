@@ -113,17 +113,17 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
       // 获取源表面的调色板
   if(bytesPerPixel == 1){
      // 创建一个新的32位深度的SDL_Surface
-    SDL_Surface *dst = SDL_CreateRGBSurface(0, s->w, s->h, 32, 0xFF000000, 0x00FF0000, 0x0000FF00, 0x000000FF);
+    SDL_Surface *dst = SDL_CreateRGBSurface(0, w, h, 32, 0xFF000000, 0x00FF0000, 0x0000FF00, 0x000000FF);
     assert(dst);
     SDL_Palette *palette = s->format->palette;
     uint32_t *dstPixels = (uint32_t *)dst->pixels;
     uint8_t *sPixels = (uint8_t *)s->pixels;
     // 遍历源表面的每个像素
-    printf("in :%d %d %d %d %d %d\n",x,y,w,h,s->w,s->h);
-    for (int i = 0; i < s->h; i++) {
-        for (int j = 0; j < s->w; j++) {
+    // printf("in :%d %d %d %d %d %d\n",x,y,w,h,s->w,s->h);
+    for (int i = 0; i < h; i++) {
+        for (int j = 0; j < w; j++) {
             // 获取像素索引
-            uint8_t pixelIndex = sPixels[i * s->w + j];
+            uint8_t pixelIndex = sPixels[x + i * w + j];
 
             // 从调色板中获取RGB颜色值
             SDL_Color color = palette->colors[pixelIndex];
