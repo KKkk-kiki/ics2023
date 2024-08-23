@@ -105,7 +105,7 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
     
       }
 }
-
+//将Surface (x,y)处(w,h)的矩形更新到画布
 void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
   if(x==0&&y==0&&w==0&&h==0){
     w = s->w;
@@ -123,17 +123,14 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
     uint32_t *dstPixels = (uint32_t *)dst->pixels;
     uint8_t *sPixels = (uint8_t *)s->pixels;
     // 遍历源表面的每个像素
-    // printf("in :%d %d %d %d %d %d\n",x,y,w,h,s->w,s->h);
     for (int i = 0; i < h; i++) {
         for (int j = 0; j < w; j++) {
             // 获取像素索引
             uint8_t pixelIndex = *(sPixels + (y + i) * s->w + x +j);
-
             // 从调色板中获取RGB颜色值
             SDL_Color color = palette->colors[pixelIndex];
             // 将RGB颜色值转换为32位RGBA格式
             uint32_t rgba = (255 << 24) | (color.r << 16) | (color.g << 8) | color.b;
-            // printf("%d: %x\n",i,rgba);
             // 将32位RGBA值写入目标表面
             dstPixels[i * dst->w + j] = rgba;
         }
@@ -144,7 +141,20 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
 
   }
   if(bytesPerPixel == 4){
-    NDL_DrawRect((uint32_t *)s->pixels, x, y, w, h) ;
+         // 创建一个新的32位深度的SDL_Surface
+    SDL_Surface *dst = SDL_CreateRGBSurface(0, w, h, 32, 0xFF000000, 0x00FF0000, 0x0000FF00, 0x000000FF);
+    assert(dst);
+    uint32_t *dstPixels = (uint32_t *)dst->pixels;
+    uint32_t *sPixels = (uint32_t *)s->pixels;
+    // 遍历源表面的每个像素
+    for (int i = 0; i < h; i++) {
+        for (int j = 0; j < w; j++) {
+            // 将32位RGBA值写入目标表面
+            dstPixels[i * dst->w + j] = *(sPixels + (y + i) * s->w + x +j);
+        }
+    }
+    NDL_DrawRect(dstPixels, x, y, w, h) ;
+    SDL_FreeSurface(dst);
     return ;
 
   }
