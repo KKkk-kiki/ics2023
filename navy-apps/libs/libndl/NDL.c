@@ -70,7 +70,7 @@ void NDL_OpenCanvas(int *w, int *h) {
   //   close(fbctl);
   // }
 }
-
+//将pixel画到画布上x,y开始的w,h的矩形区域
 void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
   int fd = open("/dev/fb", 0,"r");
   if((x==0)&&(y==0)&&(w==0)&&(h==0)){

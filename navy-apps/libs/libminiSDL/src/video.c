@@ -117,13 +117,13 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
     assert(dst);
     SDL_Palette *palette = s->format->palette;
     uint32_t *dstPixels = (uint32_t *)dst->pixels;
-    uint8_t *sPixels = (uint8_t *)s->pixels;
+    uint8_t *sPixels = (uint8_t *)s->pixels + (y*s->w + x );
     // 遍历源表面的每个像素
     // printf("in :%d %d %d %d %d %d\n",x,y,w,h,s->w,s->h);
     for (int i = 0; i < h; i++) {
         for (int j = 0; j < w; j++) {
             // 获取像素索引
-            uint8_t pixelIndex = sPixels[x + i * w + j];
+            uint8_t pixelIndex = sPixels[i * w + j];
 
             // 从调色板中获取RGB颜色值
             SDL_Color color = palette->colors[pixelIndex];
