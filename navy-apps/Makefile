@@ -169,7 +169,7 @@ $(CLEAN_ALL):
 # APPS = nslider menu nterm pal bird
 # TESTS = dummy hello file-test timer-test event-test bmp-test
 
-APPS = pal menu am-kernels
+APPS = pal menu am-kernels fceux
 TESTS = 
 
 fsimg: $(addprefix apps/, $(APPS)) $(addprefix tests/, $(TESTS))
