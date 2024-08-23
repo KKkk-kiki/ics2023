@@ -1,5 +1,7 @@
 #include <am.h>
 
+#include <unistd.h>
+#include <fcntl.h>
 bool ioe_init() {
   return true;
 }
